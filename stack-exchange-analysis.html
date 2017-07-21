@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="https://mike-camp.github.io/theme/css/style.css">
 
 
-<meta name="description" content="Stack Exchange Tag Prediction¶Stack exchange is a popular question and answer based website. Users post and answer questions, and points are awarded for good answers based on community feedback. There are several boards on stack exchange dedicated to specific topics such as Cryptography Travel Physics Math Cooking The questions have a short title, and a longer content section where the user describes the question in more detail. There are tags associated with each question to allow users to search through previous questions and answers.">
+<meta name="description" content="Stack Exchange is a popular question and article based website where users can post and answer questions. Each question has a short title, followed by a longer description of the problem. The goal of this post is to come up with a machine learning algorithm that can predict the tags on a question given the content of the post. I also try to make the predictions work across the subjects, so that the algorithm can be trained on a cooking dataset, yet offer predictions for the physics dataset.">
 </head>
 
 <body>
@@ -31,7 +31,7 @@
         <div class="col-sm-12">
           <h1 class="title"><a href="https://mike-camp.github.io/">Mike's Blog</a></h1>
           <ul class="list-inline">
-            <li class="list-inline-item"><a href="https://github/mike-camp.com/" target="_blank">github</a></li>
+            <li class="list-inline-item"><a href="https://github.com/mike-camp" target="_blank">github</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +56,7 @@
       </li>
       <li class="list-inline-item">
         <i class="fa fa-user-o"></i>
-        <a href="https://mike-camp.github.io/author/mike-campbell.html">Mike Campbell</a>      </li>
+        <a href="https://mike-camp.github.io/author/michael-campbell.html">Michael Campbell</a>      </li>
       <li class="list-inline-item">
         <i class="fa fa-files-o"></i>
         <a href="https://mike-camp.github.io/tag/stack-exchange.html">#stack-exchange</a>,         <a href="https://mike-camp.github.io/tag/data-analysis.html">#data-analysis</a>,         <a href="https://mike-camp.github.io/tag/machine-learning.html">#machine-learning</a>      </li>
@@ -1247,7 +1247,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Part-of-speech-">Part of speech <a id="2.1"></a><a class="anchor-link" href="#Part-of-speech-">¶</a></h3><p>Looking at the tags, we can notice that most of the tags are nouns (ie vegetables, curry) or verbs.  Because of this, we will wan't to keep track of all parts of speech as one of our features.  To do this, we will use the natural language toolkit, an opensource python library designed for processing text and language.</p>
+<h3 id="Part-of-speech-">Part of speech <a id="2.1"></a><a class="anchor-link" href="#Part-of-speech-">¶</a></h3><p>Looking at the tags, we can notice that most of the tags are nouns (ie vegetables, curry) or verbs.  Because of this, we will want to keep track of all parts of speech as one of our features.  To do this, we will use the natural language toolkit, an open source python library designed for processing text and language.</p>
 <p>To store this information, we will create a dataframe for every question in our cooking dataframe which stores every unique word (minus stop words) and their corresponding part of speech.</p>
 </div>
 </div>
@@ -1360,7 +1360,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Term-Frequency-Inverse-Document-Frequency-">Term Frequency-Inverse Document Frequency <a id="2.2"></a><a class="anchor-link" href="#Term-Frequency-Inverse-Document-Frequency-">¶</a></h3><p>Given a collection of documents, the term frequency is the frequency of which a term appears in document.  If a word appears multiple times in the content section, then it is likely to be important.  So a measure of the importance of the word might be it's term frequency.  The document frequency is how often the term appears in all of the documents.  If a word appears in every document in the corpus (for example "the"), then the term is unlikely to be important in distinguesing documents.  The term frequency/inverse document frequency (TFIDF) is the ratio of the term frequency devided by the document frequency.  This means it weights highly words which appear often in one document, but not other documents, and weights words which appear in every document lower.   To find this, we will use the sklearn package TfidfVectorizer.</p>
+<h3 id="Term-Frequency-Inverse-Document-Frequency-">Term Frequency-Inverse Document Frequency <a id="2.2"></a><a class="anchor-link" href="#Term-Frequency-Inverse-Document-Frequency-">¶</a></h3><p>Given a collection of documents, the term frequency is the frequency of which a term appears in document.  If a word appears multiple times in the content section, then it is likely to be important.  So a measure of the importance of the word might be it's term frequency.  The document frequency is how often the term appears in all of the documents.  If a word appears in every document in the corpus (for example "the"), then the term is unlikely to be important in distinguishing documents.  The term frequency/inverse document frequency (TFIDF) is the ratio of the term frequency divided by the document frequency.  This means it weights highly words which appear often in one document, but not other documents, and weights words which appear in every document lower.   To find this, we will use the sklearn package TfidfVectorizer.</p>
 <p>The precise definition of tf-idf as implemented by the sklearn tf-idf transformer is as follows.  Let $tf(t,d)$ be the number of times term $t$ appears in document $d$, $n_d$ be the number of documents in the corpus, and $df(t)$ be the number of documents containing term $t$, then tf-idf$(t)$ is given by $$\text{tf-idf}(t,d) = tf(t,d)\left( log\left(\frac{1+n_d}{1+df(t)}\right) +1\right) $$</p>
 </div>
 </div>
@@ -1645,7 +1645,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Average-tf-idf-values-&lt;a-id-=-&#x27;2.4&#x27;&gt;&lt;/a&gt;">Average tf-idf values <a id="2.4"></a><a class="anchor-link" href="#Average-tf-idf-values-&lt;a-id-=-&#x27;2.4&#x27;&gt;&lt;/a&gt;">¶</a></h3><p>There are still a couple of useful features we can extract.   We can notice that the total number of tags increases much slower then the number of entries, indicating that each tag are reused several times.   So there exists a much smaller set of tagged words in the entire corpus.  We want some way to distinguesh these tagged words from the rest of the corpus.</p>
+<h3 id="Average-tf-idf-values-&lt;a-id-=-&#x27;2.4&#x27;&gt;&lt;/a&gt;">Average tf-idf values <a id="2.4"></a><a class="anchor-link" href="#Average-tf-idf-values-&lt;a-id-=-&#x27;2.4&#x27;&gt;&lt;/a&gt;">¶</a></h3><p>There are still a couple of useful features we can extract.   We can notice that the total number of tags increases much slower than the number of entries, indicating that each tag are reused several times.   So there exists a much smaller set of tagged words in the entire corpus.  We want some way to distinguish these tagged words from the rest of the corpus.</p>
 <p>A useful measure is the average tfidf values of the word.   If a word is tagged often, then when it appears, it most likely has a high tfidf value each time.  Hence the tagged words should tend to have higher average tfidf values then untagged words.</p>
 </div>
 </div>
@@ -2300,7 +2300,7 @@ untagged terms average title-tfidf values: 0.068+/-0.163
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Combining-the-operations">Combining the operations<a class="anchor-link" href="#Combining-the-operations">¶</a></h4><p>Now that we have came up with a list of features we want, lets put all of these transformations in one function that can be easily applied to any of the six dataframes we are analyzing.</p>
+<h4 id="Combining-the-operations">Combining the operations<a class="anchor-link" href="#Combining-the-operations">¶</a></h4><p>Now that we have came up with a list of features we want, let’s put all of these transformations in one function that can be easily applied to any of the six dataframes we are analyzing.</p>
 </div>
 </div>
 </div>
@@ -2477,7 +2477,7 @@ untagged terms average title-tfidf values: 0.068+/-0.163
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Exploratory-Data-Analysis:-">Exploratory Data Analysis: <a id="3"></a><a class="anchor-link" href="#Exploratory-Data-Analysis:-">¶</a></h2><h3 id="TF-IDF-">TF-IDF <a id="3.1"></a><a class="anchor-link" href="#TF-IDF-">¶</a></h3><p>At this point, we have processed each stack exchange entry into a useful set of features.  Now, lets do some exploratory data analysis to see the relationship between content tfidf, title_tfidf, and the tfidf ranks.  Since there's many more untagged points, we will limit the number of untagged points we plot to be roughly equal to the amount of tagged points</p>
+<h2 id="Exploratory-Data-Analysis:-">Exploratory Data Analysis: <a id="3"></a><a class="anchor-link" href="#Exploratory-Data-Analysis:-">¶</a></h2><h3 id="TF-IDF-">TF-IDF <a id="3.1"></a><a class="anchor-link" href="#TF-IDF-">¶</a></h3><p>At this point, we have processed each stack exchange entry into a useful set of features.  Now, let’s do some exploratory data analysis to see the relationship between content tfidf, title_tfidf, and the tfidf ranks.  Since there's many more untagged points, we will limit the number of untagged points we plot to be roughly equal to the amount of tagged points</p>
 </div>
 </div>
 </div>
@@ -4547,8 +4547,8 @@ gWhmZmZmTVwgmpmZmVmT/wc/eRh62PQ/PAAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This suggests to us that we should use the part of speech as a predictive measure.  To show this more clearly, lets look at the probability that a word will be tagged given that it is a noun, a verb, etc.   Of course if a part of speech only occurs one time, then it won't be useful to pay attention to its probability, so lets make the cutoff that the type of word has to occur more then 1% of the time.</p>
-<p>The graphs illustrate that across all subjects, NN and NNS labled words are the most likely to be tagged.</p>
+<p>This suggests to us that we should use the part of speech as a predictive measure.  To show this more clearly, let’s look at the probability that a word will be tagged given that it is a noun, a verb, etc.   Of course if a part of speech only occurs one time, then it won't be useful to pay attention to its probability, so lets make the cutoff that the type of word has to occur more than 1% of the time.</p>
+<p>The graphs illustrate that across all subjects, NN and NNS labeled words are the most likely to be tagged.</p>
 </div>
 </div>
 </div>
@@ -5018,9 +5018,9 @@ DoDX6dIAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="SVM-classifiers-">SVM classifiers <a id="4.1"></a><a class="anchor-link" href="#SVM-classifiers-">¶</a></h4><p>A support vector machine attempts to classify data by creating a hyperplane which seperates both classes.   The hyperplane is chosen so that as many points as possible lie in the right side, and that there is a large margin around the hyperplane where the points aren't close.   Although the first SVM was linear, SVM's can be used as non-linear classifiers by first mapping the data to a higher dimensional space where it can be linearly seperated, and then creating a hyperplane which lies between them.  This turns out not to be as computational expensive via the kernel trick.</p>
-<p>Since we saw before that our data wasn't linearly seperable, we can use the non-linear kernels.   Also since most of the words are not-tagged, we wan't to weight the points which are tagged more heavily (since the model will tend towards predicting that nothing is tagged which has a 95% accuracy).</p>
-<p>We will also need to deal with the word types.   Fortunately, we can see that the amount of word types used in tags is relatively small, and we could seperate these out into seperate features to use with one hot encoding.  However, if we do this, then the model is unlikely to be able to predict tags in different subjects since the word type distibution for tagged words varies between tags.  Instead, I will seperate the words out into three categories, one for words labeled NN, one for JJ,NNS,VB,VBP, VBG, VBN, VBZ, or VBD, and one for all other tags.</p>
+<h4 id="SVM-classifiers-">SVM classifiers <a id="4.1"></a><a class="anchor-link" href="#SVM-classifiers-">¶</a></h4><p>A support vector machine attempts to classify data by creating a hyperplane which separates both classes.   The hyperplane is chosen so that as many points as possible lie in the right side, and that there is a large margin around the hyperplane where the points aren't close.   Although the first SVM was linear, SVM's can be used as non-linear classifiers by first mapping the data to a higher dimensional space where it can be linearly separated, and then creating a hyperplane which lies between them.  This turns out not to be as computational expensive via the kernel trick.</p>
+<p>Since we saw before that our data wasn't linearly separable, we can use the non-linear kernels.   Also since most of the words are not-tagged, we want to weight the points which are tagged more heavily (since the model will tend towards predicting that nothing is tagged which has a 95% accuracy).</p>
+<p>We will also need to deal with the word types.   Fortunately, we can see that the amount of word types used in tags is relatively small, and we could separate these out into separate features to use with one hot encoding.  However, if we do this, then the model is unlikely to be able to predict tags in different subjects since the word type distribution for tagged words varies between tags.  Instead, I will separate the words out into three categories, one for words labeled NN, one for JJ,NNS,VB,VBP, VBG, VBN, VBZ, or VBD, and one for all other tags.</p>
 </div>
 </div>
 </div>
@@ -5717,7 +5717,7 @@ xhjjWCAaY4xjgWiMMY4FojHGOBaIxhjjWCAaY4zz/wGm3tF4M2Y+8wAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can see that this doesn't provide that much benifit in accurate scores, however, timewise, this method ends up being much faster then the previous methods.</p>
+<p>We can see that this doesn't provide that much benefit in accurate scores, however, timewise, this method ends up being much faster than the previous methods.</p>
 </div>
 </div>
 </div>
@@ -5726,7 +5726,7 @@ xhjjWCAaY4xjgWiMMY4FojHGOBaIxhjjWCAaY4zz/wGm3tF4M2Y+8wAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Stochastic-Gradient-descent-with-kernel-approximation-">Stochastic Gradient descent with kernel approximation <a id="4.2"></a><a class="anchor-link" href="#Stochastic-Gradient-descent-with-kernel-approximation-">¶</a></h3><p>The previous method gave good results, however, we might wan't to train our classifier using all of the dataset.  To do this, we need to use stochastic gradient descent.  Although this is usually used for fitting linear methods, we can use a the sklearn kernel approximator to map the data into a higher dimensional space before feeding it into our classifier.   The mapping tries to approximate the mapping of the rbf kernel.</p>
+<h3 id="Stochastic-Gradient-descent-with-kernel-approximation-">Stochastic Gradient descent with kernel approximation <a id="4.2"></a><a class="anchor-link" href="#Stochastic-Gradient-descent-with-kernel-approximation-">¶</a></h3><p>The previous method gave good results, however, we might want to train our classifier using all of the dataset.  To do this, we need to use stochastic gradient descent.  Although this is usually used for fitting linear methods, we can use a the sklearn kernel approximator to map the data into a higher dimensional space before feeding it into our classifier.   The mapping tries to approximate the mapping of the rbf kernel.</p>
 </div>
 </div>
 </div>
@@ -6058,7 +6058,7 @@ YxwriMYY41hBNMYYxwqiMcY4/x/84c1+hLrGfwAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can see that although thsi runs much faster then the SVM, it does not preform nearly as well.</p>
+<p>We can see that although this runs much faster then the SVM, it does not perform nearly as well.</p>
 </div>
 </div>
 </div>
