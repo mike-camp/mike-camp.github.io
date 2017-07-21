@@ -32,6 +32,7 @@
           <h1 class="title"><a href="https://mike-camp.github.io/">Mike's Blog</a></h1>
           <ul class="list-inline">
             <li class="list-inline-item"><a href="https://github.com/mike-camp" target="_blank">github</a></li>
+            <li class="list-inline-item"><a href="#about" target="_blank">about</a></li>
           </ul>
         </div>
       </div>
@@ -1045,8 +1046,8 @@ h6:hover .anchor-link {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Finding-spam-in-Youtube-comments.">Finding spam in Youtube comments.<a class="anchor-link" href="#Finding-spam-in-Youtube-comments.">¶</a></h1><p>Spam has been around since the beginning of the internet.  In fact, the use of spam over a network stretches back all the way to 1884 when wealthy Americans were sent unsolicited investment offers over the telegraph[<a href="http://content.time.com/time/business/article/0,8599,1933796,00.html">1</a>].  In more modern times, the first appearence of modern email spam occured on ARPANET, a military precurser to the internet, when 'a man named Gary Turk sent an e-mail solicitation to 400 people, advertising his line of new computers'[<a href="http://content.time.com/time/business/article/0,8599,1933796,00.html">1</a>].</p>
-<p>In this notebook we will consider filtering the problem of finding spam in Youtube comments.   Spam in youtube comments is a slightly different task then spam in email.  Youtube comments tend to be short, often less than five words, and a spam email may simply contain the name the website domain.   However, as we will see, it is quite easy to construct a machine learning model to classify comments as spam or ham (not spam).</p>
-<p>For a training and test set, we will use the spam database found on the  UCI machine learning repository.   There are several different types of algorithm we can use to classify spam, however in this notebook, I will compare three specific models</p>
+<p>In this notebook we will consider filtering the problem of finding spam in Youtube comments.   Spam in Youtube comments is a slightly different task then spam in email.  Youtube comments tend to be short, often less than five words, and a spam email may simply contain the name the website domain.   However, as we will see, it is quite easy to construct a machine learning model to classify comments as spam or ham (not spam).</p>
+<p>For a training and test set, we will use the spam database found on the  UCI machine learning repository.   There are several different types of algorithm we can use to classify spam; however, in this notebook, I will compare three specific models</p>
 <ul>
 <li>Logistic Regression</li>
 <li>Naive Bayes Classifier</li>
@@ -1102,7 +1103,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Data-analysis,-preprocessing-">Data analysis, preprocessing <a id="1"></a><a class="anchor-link" href="#Data-analysis,-preprocessing-">¶</a></h1><p><a href="http://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection#">UCI has a machine learning repository consisting of comments from five youtube videos that are classified as spam or not spam</a>.   These are stored as csv_files, which will be loaded into a list of dataframes.   The classification data is stored as the class field, where comments with a class of 1 are considered spam, and comments with a class value of 0 are ham.</p>
+<h1 id="Data-analysis,-preprocessing-">Data analysis, preprocessing <a id="1"></a><a class="anchor-link" href="#Data-analysis,-preprocessing-">¶</a></h1><p><a href="http://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection#">UCI has a machine learning repository consisting of comments from five youtube videos that are classified as spam or not spam</a>.   These are stored as csv files, which will be loaded into a list of dataframes.   The classification data is stored as the class field, where comments with a class of 1 are considered spam, and comments with a class value of 0 are ham.</p>
 </div>
 </div>
 </div>

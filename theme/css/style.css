@@ -29,18 +29,20 @@ hr {
 /* ------------------------------------------------------------------------- */
 
 .header {
-	background-image: url('/images/img2.jpg');
+	background-image: url('/images/mtn.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-color: #FFFFFF;
 }
 
 .header a {
-	color: #fff;
+	color: #000; /*original = fff */
 }
 
 .header .text-muted {
-	color: #bbb !important;
+	color: #fff !important; /* original = #bbb !important */
 }
+
 
 .container {
   max-width: 960px;
