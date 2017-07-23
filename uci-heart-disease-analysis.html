@@ -1046,8 +1046,8 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Analyzing-the-UCI-heart-disease-dataset">Analyzing the UCI heart disease dataset<a class="anchor-link" href="#Analyzing-the-UCI-heart-disease-dataset">¶</a></h1><p>The UCI repository contains three datasets on heart disease.   Each dataset contains information about several patients suspected of having heart disease such as  whether or not the patient is a smoker, the patients resting heart rate, age, sex, etc.   The patients were all tested for heart disease and the results of that tests are given as numbers ranging from 0 (no heart disease) to 4 (severe heart disease).   The goal of this notebook will be to use machine learning and statistical techniques to see if we can predict both the presence and severity of heart disease from the features given.   In addition, we will also analyze which features are most important in predicting the presence and severity of heart disease.</p>
-<p>There are three relevant datasets we will be using, which are from Hungary, Long Beach, and Cleveland.  Each of these hospitals recorded patient data, which was published with personal information removed from the database.</p>
+<h1 id="Analyzing-the-UCI-heart-disease-dataset">Analyzing the UCI heart disease dataset<a class="anchor-link" href="#Analyzing-the-UCI-heart-disease-dataset">¶</a></h1><p>The UCI repository contains three datasets on heart disease.   Each dataset contains information about several patients suspected of having heart disease such as  whether or not the patient is a smoker, the patients resting heart rate, age, sex, etc.   The patients were all tested for heart disease and the results of that tests are given as numbers ranging from 0 (no heart disease) to 4 (severe heart disease).   The goal of this notebook will be to use machine learning and statistical techniques to predict both the presence and severity of heart disease from the features given.   In addition, I will also analyze which features are most important in predicting the presence and severity of heart disease.</p>
+<p>There are three relevant datasets which I will be using, which are from Hungary, Long Beach, and Cleveland.  Each of these hospitals recorded patient data, which was published with personal information removed from the database.</p>
 </div>
 </div>
 </div>
@@ -1080,7 +1080,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Cleaning-the-Data-&lt;a-id-=&#x27;1&#x27;&gt;&lt;/a&gt;">Cleaning the Data <a id="1"></a><a class="anchor-link" href="#Cleaning-the-Data-&lt;a-id-=&#x27;1&#x27;&gt;&lt;/a&gt;">¶</a></h2><p>The datasets are slightly messy and will first need to be cleaned.  For example,the dataset isn't in standard csv format, instead each feature spans several lines, with each feature being separated by the word 'name'.   We will first process the data to bring it into csv format, and then import it into a pandas df.  The names and descriptions of the features, found on the UCI repository is stored in the string feature_names.</p>
+<h2 id="Cleaning-the-Data-&lt;a-id-=&#x27;1&#x27;&gt;&lt;/a&gt;">Cleaning the Data <a id="1"></a><a class="anchor-link" href="#Cleaning-the-Data-&lt;a-id-=&#x27;1&#x27;&gt;&lt;/a&gt;">¶</a></h2><p>The datasets are slightly messy and will first need to be cleaned.  For example,the dataset isn't in standard csv format, instead each feature spans several lines, with each feature being separated by the word 'name'.   I will first process the data to bring it into csv format, and then import it into a pandas df.  The names and descriptions of the features, found on the UCI repository is stored in the string feature_names.</p>
 </div>
 </div>
 </div>
@@ -1459,7 +1459,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Flagging-NaN-values-">Flagging NaN values <a id="1.2"></a><a class="anchor-link" href="#Flagging-NaN-values-">¶</a></h3><p>The NaN values are represented as -9.  We need to flag these as NaN values if we want to get good results from any machine learning algorithm.</p>
+<h3 id="Flagging-NaN-values-">Flagging NaN values <a id="1.2"></a><a class="anchor-link" href="#Flagging-NaN-values-">¶</a></h3><p>The NaN values are represented as -9. These will need to be flagged as NaN values in order to get good results from any machine learning algorithm.</p>
 </div>
 </div>
 </div>
@@ -1659,8 +1659,8 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Removing-non-predictive-features-">Removing non-predictive features <a id="1.3"></a><a class="anchor-link" href="#Removing-non-predictive-features-">¶</a></h3><p>However before we do start analyzing the data we should drop columns which aren't going to be predictive.  Several features such as the day of the exercise reading, or the ID of the patient are unlikely to be relevant in predicting heart disease.  The exercise protocol might be predictive, however, since this might vary with the hospital, and since the hospitals had different rates for the category of heart disease, this might end up being more indicative of the hospital the patient went to and not of the likelihood of heart disease.   The description of the columns on the UCI website also indicates that several of the columns should not be used.</p>
-<p>In addition the information in columns 59+ is simply about the vessels that damage was detected in.   Since we are only trying to predict the presence of heart disease and not the specific vessels which are damaged, we will discard these columns.</p>
+<h3 id="Removing-non-predictive-features-">Removing non-predictive features <a id="1.3"></a><a class="anchor-link" href="#Removing-non-predictive-features-">¶</a></h3><p>However before I do start analyzing the data I will drop columns which aren't going to be predictive.  Several features such as the day of the exercise reading, or the ID of the patient are unlikely to be relevant in predicting heart disease.  The exercise protocol might be predictive, however, since this might vary with the hospital, and since the hospitals had different rates for the category of heart disease, this might end up being more indicative of the hospital the patient went to and not of the likelihood of heart disease.   The description of the columns on the UCI website also indicates that several of the columns should not be used.</p>
+<p>In addition the information in columns 59+ is simply about the vessels that damage was detected in.   Since I am only trying to predict the presence of heart disease and not the specific vessels which are damaged, I will discard these columns.</p>
 <ul>
 <li>ID: id of patient</li>
 <li>ccf: social security number (I replaced this with a dummy value of 0)</li>
@@ -1700,7 +1700,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To get a better sense of the remaining data, we can look at how many distinct values occur in each of the columns</p>
+<p>To get a better sense of the remaining data, I will print out how many distinct values occur in each of the columns</p>
 </div>
 </div>
 </div>
@@ -1740,7 +1740,7 @@ chol   213
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We see that some columns such as pncaden contain less than 2 values.  These columns are not predictive and hence should be dropped.</p>
+<p>Some columns such as pncaden contain less than 2 values.  These columns are not predictive and hence should be dropped.</p>
 </div>
 </div>
 </div>
@@ -1773,7 +1773,7 @@ chol   213
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We also have several columns which are mostly filled with NaN entries.   We will drop any entries which are filled mostly with NaN entries since we want to make predictions based on categories that all or most of the data shares.</p>
+<p>There are also several columns which are mostly filled with NaN entries.   I will drop any entries which are filled mostly with NaN entries since I want to make predictions based on categories that all or most of the data shares.</p>
 </div>
 </div>
 </div>
@@ -2020,7 +2020,7 @@ num: [0 1 2 3 4]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can also see that the column 'prop' appear to both have corrupted rows in them, which will need to be deleted from the dataframe.  We will also one hot encode the categorical features 'cp' and 'restecg' which is the type of chest pain.</p>
+<p>We can also see that the column 'prop' appear to both have corrupted rows in them, which will need to be deleted from the dataframe.  I will also one hot encode the categorical features 'cp' and 'restecg' which is the type of chest pain.</p>
 </div>
 </div>
 </div>
@@ -2216,7 +2216,7 @@ num: [0 1 2 3 4]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Exploratory-data-analysis-&lt;a-id-=&#x27;2&#x27;&gt;&lt;/a&gt;">Exploratory data analysis <a id="2"></a><a class="anchor-link" href="#Exploratory-data-analysis-&lt;a-id-=&#x27;2&#x27;&gt;&lt;/a&gt;">¶</a></h2><p>We still have a large number of features.  We will need to see which of these features are useful in predicting the data, and which are not.   We will begin by splitting our data into a test and training dataset.</p>
+<h2 id="Exploratory-data-analysis-&lt;a-id-=&#x27;2&#x27;&gt;&lt;/a&gt;">Exploratory data analysis <a id="2"></a><a class="anchor-link" href="#Exploratory-data-analysis-&lt;a-id-=&#x27;2&#x27;&gt;&lt;/a&gt;">¶</a></h2><p>The dataset still has a large number of features, which need to be analyzed for predictive power.  I will begin by splitting the data into a test and training dataset.</p>
 </div>
 </div>
 </div>
@@ -2239,8 +2239,8 @@ num: [0 1 2 3 4]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Using-the-anova-F-test-and-mutual-information-for-feature-selection-">Using the anova F test and mutual information for feature selection <a id="2.1"></a><a class="anchor-link" href="#Using-the-anova-F-test-and-mutual-information-for-feature-selection-">¶</a></h3><p>From this we see that we do have some features which are slightly predictive by themselves.   However, we currently have more features than we need, and not all of these features are useful.  To narrow down the number of features, we will use the sklearn class SelectKBest.   By default, this class uses the anova f-value of each feature to select the best features.   The f value is a ratio of the variance between classes divided by the variance within classes.  This tells us how much the variable differs between the classes we want to compare.  The higher the f value, the more likely a variable is to be relevant.  However, the f value can miss features or relationships which are meaningful.  Another way to approach the feature selection is to select the features with the highest mutual information.   We will use both of these methods to find which one yields the best results.</p>
-<p>To deal with missing variables, we will take the mean.</p>
+<h3 id="Using-the-anova-F-test-and-mutual-information-for-feature-selection-">Using the anova F test and mutual information for feature selection <a id="2.1"></a><a class="anchor-link" href="#Using-the-anova-F-test-and-mutual-information-for-feature-selection-">¶</a></h3><p>Although there are some features which are slightly predictive by themselves, the data contains more features than necessary, and not all of these features are useful.  To narrow down the number of features, I will use the sklearn class SelectKBest.   By default, this class uses the anova f-value of each feature to select the best features.   The f value is a ratio of the variance between classes divided by the variance within classes.  This tells us how much the variable differs between the classes.  The higher the f value, the more likely a variable is to be relevant.  However, the f value can miss features or relationships which are meaningful.  Another way to approach the feature selection is to select the features with the highest mutual information.   I will use both of these methods to find which one yields the best results.</p>
+<p>To deal with missing variables in the data (NaN values), I will take the mean.</p>
 </div>
 </div>
 </div>
@@ -2841,7 +2841,7 @@ C4vFYrGUxSoLi8VisZTl/wEN7E/Ou2X11AAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As we can see, the accuracy is about the same using the mutual information, and the accuracy stops increasing soon after reaching approximately 5 features.</p>
+<p>The accuracy is about the same using the mutual information, and the accuracy stops increasing soon after reaching approximately 5 features.</p>
 </div>
 </div>
 </div>
@@ -3276,7 +3276,7 @@ ITEzs4Z4ITEzs4Z4ITEzs4Z4ITEzs4Z4ITEzs4Z4ITEzs4a8BsdDNT2zO5nbAAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Choosing-a-classifier.---">Choosing a classifier.   <a id="4.2"></a><a class="anchor-link" href="#Choosing-a-classifier.---">¶</a></h3><p>There are several types of classifiers available in sklearn to use.   We have already tried Logistic Regression and Random Forests.  However, we have not find the optimal parameters for these models using a grid search yet.   To do this, we will use a grid search to evaluate all possible combinations.   We will test out three popular models for fitting categorical data, logistic regression, random forests, and support vector machines using both the linear and rbf kernel.</p>
+<h3 id="Choosing-a-classifier.---">Choosing a classifier.   <a id="4.2"></a><a class="anchor-link" href="#Choosing-a-classifier.---">¶</a></h3><p>There are several types of classifiers available in sklearn to use.   I have already tried Logistic Regression and Random Forests.  However, I have not found the optimal parameters for these models using a grid search yet.   To do this, I will use a grid search to evaluate all possible combinations.   I will test out three popular models for fitting categorical data, logistic regression, random forests, and support vector machines using both the linear and rbf kernel.</p>
 </div>
 </div>
 </div>
@@ -3375,7 +3375,7 @@ accuracy: 0.541
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Another possible useful classifier is the gradient boosting classifier, XGBoost, which has been used to win several kaggle challenges.  Lets try it out on this dataset.</p>
+<p>Another possible useful classifier is the gradient boosting classifier, XGBoost, which has been used to win several kaggle challenges.  I will use this to predict values from the dataset.</p>
 </div>
 </div>
 </div>
@@ -3419,7 +3419,7 @@ accuracy: 0.541
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We see here that xgboost does better slightly better than the random forest and logistic regression, however the results are all close to each other.</p>
+<p>The xgboost does better slightly better than the random forest and logistic regression, however the results are all close to each other.</p>
 </div>
 </div>
 </div>
@@ -3428,7 +3428,7 @@ accuracy: 0.541
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Results.---">Results.   <a id="3"></a><a class="anchor-link" href="#Results.---">¶</a></h2><p>Upon applying our model to the testing dataset, we manage to get an accuracy of 56.7%.  The xgboost is only marginally more accurate than using a logistic regression in predicting the presence and type of heart disease.</p>
+<h2 id="Results.---">Results.   <a id="3"></a><a class="anchor-link" href="#Results.---">¶</a></h2><p>Upon applying our model to the testing dataset, I manage to get an accuracy of 56.7%.  The xgboost is only marginally more accurate than using a logistic regression in predicting the presence and type of heart disease.</p>
 </div>
 </div>
 </div>
@@ -3483,7 +3483,7 @@ accuracy: 0.541
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Several groups analyzing this dataset used a subsample of 14 features.  When we compare the features we use, we see that our algorithm already selected only from these 14 features, and ended up only selecting 6 of them to create the model (note cp_2 and cp_4 are one hot encodings of the values of the feature cp)</p>
+<p>Several groups analyzing this dataset used a subsample of 14 features.  Our algorithm already selected only from these 14 features, and ended up only selecting 6 of them to create the model (note cp_2 and cp_4 are one hot encodings of the values of the feature cp)</p>
 <table>
 <thead><tr>
 <th>Used in other analysis</th>
@@ -3586,7 +3586,7 @@ dtype: object
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Conclusions:-">Conclusions: <a id="4"></a><a class="anchor-link" href="#Conclusions:-">¶</a></h2><p>In predicting the presence and type of heart disease, we were able to achieve a 57.5% accuracy on the training set, and a 56.7% accuracy on the test set, indicating that our model was not overfitting the data.     The most important features we found in predicting the presence of heart damage and the importance scores calculated by the xgboost classifier were:</p>
+<h2 id="Conclusions:-">Conclusions: <a id="4"></a><a class="anchor-link" href="#Conclusions:-">¶</a></h2><p>In predicting the presence and type of heart disease, I was able to achieve a 57.5% accuracy on the training set, and a 56.7% accuracy on the test set, indicating that our model was not overfitting the data.     The most important features in predicting the presence of heart damage and their importance scores calculated by the xgboost classifier were:</p>
 <table>
 <thead><tr>
 <th>feature</th>

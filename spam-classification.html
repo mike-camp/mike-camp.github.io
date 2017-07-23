@@ -1046,15 +1046,15 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Finding-spam-in-Youtube-comments.">Finding spam in Youtube comments.<a class="anchor-link" href="#Finding-spam-in-Youtube-comments.">¶</a></h1><p>Spam has been around since the beginning of the internet.  In fact, the use of spam over a network stretches back all the way to 1884 when wealthy Americans were sent unsolicited investment offers over the telegraph[<a href="http://content.time.com/time/business/article/0,8599,1933796,00.html">1</a>].  In more modern times, the first appearence of modern email spam occured on ARPANET, a military precurser to the internet, when 'a man named Gary Turk sent an e-mail solicitation to 400 people, advertising his line of new computers'[<a href="http://content.time.com/time/business/article/0,8599,1933796,00.html">1</a>].</p>
-<p>In this notebook we will consider the problem of finding spam in Youtube comments.   Spam in Youtube comments is a slightly different task then spam in email.  Youtube comments tend to be short, often less than five words, and a spam email may simply contain the name the website domain.   However, as we will see, it is quite easy to construct a machine learning model to classify comments as spam or ham (not spam).</p>
-<p>For a training and test set, we will use the spam database found on the  UCI machine learning repository.   There are several different types of algorithm we can use to classify spam; however, in this notebook, I will compare three specific models</p>
+<h1 id="Finding-spam-in-Youtube-comments.">Finding spam in Youtube comments.<a class="anchor-link" href="#Finding-spam-in-Youtube-comments.">¶</a></h1><p>Spam has been around since the beginning of the internet.  The use of spam over a network, in fact, stretches all the way back to 1884 when wealthy Americans were sent unsolicited investment offers over the telegraph[<a href="http://content.time.com/time/business/article/0,8599,1933796,00.html">1</a>].  In more modern times, the first appearence of modern email spam occured on ARPANET, a military precurser to the internet, when 'a man named Gary Turk sent an e-mail solicitation to 400 people, advertising his line of new computers'[<a href="http://content.time.com/time/business/article/0,8599,1933796,00.html">1</a>].</p>
+<p>In this notebook we will consider the problem of finding spam in Youtube comments.   Spam in Youtube comments is a slightly different task then spam in email.  Youtube comments tend to be short, often less than five words, and a spam email may simply contain the name the website domain.   However, it is quite easy to construct a machine learning model to classify comments as spam or ham (not spam) with a high degree of accuracy.</p>
+<p>For a training and test set, I will use the spam database found on the  UCI machine learning repository.   There are several different types of algorithmw which can be used to classify spam; however, in this notebook, I will compare three specific models</p>
 <ul>
 <li>Logistic Regression</li>
 <li>Naive Bayes Classifier</li>
 <li>Recurrent Neural Networks</li>
 </ul>
-<p>While simple, the logistic regression and naive Bayes models perform quite well at classifying emails as spam or ham, and manage to achieve an f1 score of ~.9 on the test set.  The neural network performs well, though not as good as the Naive Bayes algorithm, with an f1 score of .75 on the test set.</p>
+<p>While simple, the logistic regression and naive Bayes models perform quite well at classifying emails as spam or ham, and manage to achieve an f1 score (a common metric to evaluate models) of ~.9 on the test set.  The neural network performs well, though not as good as the Naive Bayes algorithm, with an f1 score of .75 on the test set.</p>
 <h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">¶</a></h2><ul>
 <li><a href="#1">Data preprocessing</a><ul>
 <li><a href="#1.1">Cleaning the data</a></li>
@@ -1189,7 +1189,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To get a better sense of the data, let us print out the content for several reviews.</p>
+<p>To get a better sense of the data, I will print out the content for several reviews.</p>
 </div>
 </div>
 </div>
@@ -1225,7 +1225,7 @@ We are an EDM apparel company dedicated to bringing you music inspired  designs.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cleaning-the-data-">Cleaning the data <a id="1.1"></a><a class="anchor-link" href="#Cleaning-the-data-">¶</a></h3><p>We see that there are several features we don't need such as COMMENT_ID, AUTHOR, and DATE.   We also see that within content, there are a lot of web links.   To make it easier to identify weblinks, we will substitute in the word WEBLINK for every instance of a URL.   The character /ufeff is also present in the file, which is most likely due to improperly decoding utf-16 as utf-8.   We define a function to remove this.</p>
+<h3 id="Cleaning-the-data-">Cleaning the data <a id="1.1"></a><a class="anchor-link" href="#Cleaning-the-data-">¶</a></h3><p>There are several features unnecessary columns such as COMMENT_ID, AUTHOR, and DATE.   We also see that within content, there are a lot of web links.   To make it easier to identify weblinks, I will substitute in the word WEBLINK for every instance of a URL.   The character /ufeff is also present in the file, which is most likely due to improperly decoding utf-16 as utf-8.   I will also define a function to remove this.</p>
 </div>
 </div>
 </div>
@@ -1248,7 +1248,7 @@ We are an EDM apparel company dedicated to bringing you music inspired  designs.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Splitting-the-data-into-test-and-training-sets-">Splitting the data into test and training sets <a id="1.2"></a><a class="anchor-link" href="#Splitting-the-data-into-test-and-training-sets-">¶</a></h3><p>We will want to be able to test our data, so we will split the data into a test and training set.  The training set will be used along with cross validation to select the best model.  The model will then be evaluated by testing it on the test dataset.</p>
+<h3 id="Splitting-the-data-into-test-and-training-sets-">Splitting the data into test and training sets <a id="1.2"></a><a class="anchor-link" href="#Splitting-the-data-into-test-and-training-sets-">¶</a></h3><p>So I will be able to test the data, I will split the data into a test and training set.  The training set will be used along with cross validation to select the best model.  The model will then be evaluated by testing it on the test dataset.</p>
 </div>
 </div>
 </div>
@@ -1270,7 +1270,7 @@ We are an EDM apparel company dedicated to bringing you music inspired  designs.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Turning-the-sentences-into-useable-vectors-">Turning the sentences into useable vectors <a id="2"></a><a class="anchor-link" href="#Turning-the-sentences-into-useable-vectors-">¶</a></h2><p>If we want to use a machine learning algorithm to predict the number of sentences, then we need to find a mapping that will associate every word, and every sentence with a vector that we then can feed into our machine learning algorithm.   The simplest way to do this is to use the Bag of words model, or create vectors by finding the term-frequency inverse-document-frequency of each sentence.</p>
+<h2 id="Turning-the-sentences-into-usable-vectors-">Turning the sentences into usable vectors <a id="2"></a><a class="anchor-link" href="#Turning-the-sentences-into-usable-vectors-">¶</a></h2><p>In order to use a machine learning algorithm to predict from a collection of sentences, it's necessary to use a mapping that will associate every word, and every sentence with a vector that can then be feed into the machine learning algorithm.   The simplest way to do this is to use the Bag of words model, or create vectors by finding the term-frequency inverse-document-frequency of each sentence.</p>
 </div>
 </div>
 </div>
@@ -1279,21 +1279,21 @@ We are an EDM apparel company dedicated to bringing you music inspired  designs.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Bag-of-words-Model-">Bag of words Model <a id="2.1"></a><a class="anchor-link" href="#Bag-of-words-Model-">¶</a></h3><p>We will first use a bag of words model to turn each sentence into a unique vector.   The bag of words model is simply turning each word into a basis vector in a Hilbert space.  To form a vector for the words, we simply add the vectors for each word for each sentence.  Thus each sentence will be transformed into a vector that we can add to a machine learning model.  In this model, if we had the sentences</p>
+<h3 id="Bag-of-words-Model-">Bag of words Model <a id="2.1"></a><a class="anchor-link" href="#Bag-of-words-Model-">¶</a></h3><p>I will first use a bag of words model to turn each sentence into a unique vector.   The bag of words model is simply turning each word into a basis vector in a Hilbert space.  To form a vector for the words, I simply add the vectors for each word for each sentence.  Thus each sentence will be transformed into a vector that can be added to a machine learning model.  In this model, given the sentences</p>
 <ul>
 <li>'I ran to the store',</li>
 <li>'I ran across town',</li>
 <li>'I ran to work and to home',</li>
 </ul>
-<p>then we could form a basis set of the vectors ('I','ran','to','the','store','across','town','work','and','home').   The sentences would then be encoded as the vectors</p>
+<p>and the basis set of the vectors ('I','ran','to','the','store','across','town','work','and','home').   The sentences would then be encoded as the vectors</p>
 <ul>
 <li>(1,1,1,1,1,0,0,0,0,0)</li>
 <li>(1,1,0,0,0,1,1,0,0,0)</li>
 <li>(1,1,2,0,0,0,0,1,1,1)</li>
 </ul>
-<p>However, this model can still be improved.  For example, the words 'the', 'a', and 'of' occur so often that they are unlikely to help us classify comment.   These words that are common enough that they do not aid in distinguishing sentences are called stopwords.   Another limitation is that our implementation above would classify 'bag' and 'bags' as two different words.   For this bag-of-words model, we don't care about the verb tense or the s at the end of a word.  What we want to do is associate every word with a stem, that represents its most basic feature. ie. 'run' and 'running', and 'runs' might all be replaced by the same word 'ru'.  To achieve this, we will use a porter stemmer, which is found in the nltk.</p>
-<p>Another limitation is that words that only occur once during the document do not add any predictive power.  Because of this, we will ignore any words that occur less than five times.</p>
-<h3 id="TFIDF-">TFIDF <a id="2.2"></a><a class="anchor-link" href="#TFIDF-">¶</a></h3><p>The vectors are not normalized now, and in fact can be improved using one more feature which mapping each count in a vector to its term frequency/inverse document frequency.   A term which appears five times in one comment is likely important.  This is referred to as the document frequency.  However, if that same term appears five times in every comment, then it is likely a commonly used word, 'the' for example.  This is the document frequency  The term frequency/inverse document frequency is simply the ratio of the term frequency to the inverse document frequency.   The precise definition is to let the number of times a term $t$ appears in document $d$ be $tf(t,d)$.   Let $n_d$ be the total number of documents in the corpus, and let $df(t)$ be the number of documents containing term $t$.  Then the term-frequency calculated in the sklearn TfidfVectorizer is $tfidf(t,d)$ is $$tfidf(t,d) = tf(t,d)\cdot\text{log}\left(\frac{1+n_d}{1+df(t)}+1\right)$$  (Note, this differs slightly from the tfidf given in textbooks).  The resulting vectors are then normalized.</p>
+<p>However, this model can still be improved.  For example, the words 'the', 'a', and 'of' occur so often that they are unlikely to help us classify comment.   These words that are common enough that they do not aid in distinguishing sentences are called stopwords.   Another limitation is that our implementation above would classify 'bag' and 'bags' as two different words.   For this bag-of-words model, the verb tense or the s at the end of a word doesn't significantly affect the meaning of the word in the sentence.  In order to reflect this, I will associate every word with a stem, that represents its most basic feature. ie. 'run' and 'running', and 'runs' might all be replaced by the same word 'ru'.  To achieve this, I will use a porter stemmer, which is found in the nltk.</p>
+<p>Another limitation is that words that only occur once during the document do not add any predictive power.  Because of this, I will ignore any words that occur less than five times.</p>
+<h3 id="TFIDF-">TFIDF <a id="2.2"></a><a class="anchor-link" href="#TFIDF-">¶</a></h3><p>The vectors are not normalized and in fact can be improved using one more feature which mapping each count in a vector to its term frequency/inverse document frequency.   A term which appears five times in one comment is likely important.  This is referred to as the document frequency.  However, if that same term appears five times in every comment, then it is likely a commonly used word, 'the' for example.  This is the document frequency  The term frequency/inverse document frequency is simply the ratio of the term frequency to the inverse document frequency.   The precise definition is to let the number of times a term $t$ appears in document $d$ be $tf(t,d)$.   Let $n_d$ be the total number of documents in the corpus, and let $df(t)$ be the number of documents containing term $t$.  Then the term-frequency calculated in the sklearn TfidfVectorizer is $tfidf(t,d)$ is $$tfidf(t,d) = tf(t,d)\cdot\text{log}\left(\frac{1+n_d}{1+df(t)}+1\right)$$  (Note, this differs slightly from the tfidf given in textbooks).  The resulting vectors are then normalized.</p>
 </div>
 </div>
 </div>
@@ -1335,11 +1335,11 @@ We are an EDM apparel company dedicated to bringing you music inspired  designs.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Predicting-spam-vs-ham-">Predicting spam vs ham <a id="3"></a><a class="anchor-link" href="#Predicting-spam-vs-ham-">¶</a></h2><h3 id="Model-evaluation-criteria-">Model evaluation criteria <a id="3.1"></a><a class="anchor-link" href="#Model-evaluation-criteria-">¶</a></h3><p>Now that we have transformed our sentences into feature vectors, we can try several machine learning algorithms to predict whether or not a given word will be spam.  We also will need a way to evaluate our results.  Since in the real world, spam occurs infrequently compared to ham, a classifier which simply predicted everything as ham would have a high accuracy.  Because of this, accuracy is not the prefered way to measure the performance of a spam classifier.  Instead we will use a combination of precision and recall</p>
+<h2 id="Predicting-spam-vs-ham-">Predicting spam vs ham <a id="3"></a><a class="anchor-link" href="#Predicting-spam-vs-ham-">¶</a></h2><h3 id="Model-evaluation-criteria-">Model evaluation criteria <a id="3.1"></a><a class="anchor-link" href="#Model-evaluation-criteria-">¶</a></h3><p>Now that I have transformed the sentences into feature vectors, I will create and compare several machine learning algorithms to predict whether or not a given word will be spam. Since in the real world, spam occurs infrequently compared to ham, a classifier which simply predicted everything as ham would have a high accuracy.  Because of this, accuracy is not the prefered way to measure the performance of a spam classifier.  Instead I will use a combination of precision and recall</p>
 <ul>
 <li>precision: The number of true positives divided by the number of elements predicted to be true (true and false positives)</li>
 <li>recall: The number of true positives divided by the number of all positives (true positives and false negatives)
-Since we want to maximize both of these at the same time, we will use the f1-score, which is defined as the product of precision and recall, divided by their mean.  $$f_1 = \frac{\text{precision}\cdot\text{recall}}{(\text{precision}+\text{recall})/2}$$</li>
+Since I want to maximize both of these at the same time, I will use the f1-score, which is defined as the product of precision and recall, divided by their mean.  $$f_1 = \frac{\text{precision}\cdot\text{recall}}{(\text{precision}+\text{recall})/2}$$</li>
 </ul>
 </div>
 </div>
@@ -1360,7 +1360,7 @@ Since we want to maximize both of these at the same time, we will use the f1-sco
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Logistic-Regression-">Logistic Regression <a id="3.2"></a><a class="anchor-link" href="#Logistic-Regression-">¶</a></h3><p>The simplest model we could use to predict spam would be a logistic regression.   The logistic regression model will choose its parameters via a grid search which will alter the regularization term C.   We will also try using both the bag of words, and the tfidf vectors.</p>
+<h3 id="Logistic-Regression-">Logistic Regression <a id="3.2"></a><a class="anchor-link" href="#Logistic-Regression-">¶</a></h3><p>One of the simplist models that could be used to predict spam would be a logistic regression.   The logistic regression model will choose its parameters via a grid search which will alter the regularization term C.   I will also try using both the bag of words, and the tfidf vectors.</p>
 </div>
 </div>
 </div>
@@ -2401,7 +2401,7 @@ I+K5dtfFupe7oczMrC5nFmZmVpczCzMzq8vBwszM6nKwMDOzuhwszMysLgcLMzOr6/8B/2I4GtIZ
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can see that the simple bow model gets a slightly higher f1 score then the tfidf.  We can also note that because of the large dimension of the feature space, that the model achieves near perfect accuracy on the training set.</p>
+<p>The simple bow model gets a slightly higher f1 score then the tfidf.  Because of the large dimension of the feature space, that the model achieves near perfect accuracy on the training set.</p>
 </div>
 </div>
 </div>
@@ -2411,11 +2411,11 @@ I+K5dtfFupe7oczMrC5nFmZmVpczCzMzq8vBwszM6nKwMDOzuhwszMysLgcLMzOr6/8B/2I4GtIZ
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Bayesian-spam-filtering-">Bayesian spam filtering <a id="3.3"></a><a class="anchor-link" href="#Bayesian-spam-filtering-">¶</a></h3><p>Bayesian spam filtering is one of the oldest types of spam filtering out there.   The original papers covering this method were first published in 1998 [<a href="http://www.paulgraham.com/better.html">2</a>].   However, further improvements came in 2003, when Paul Graham published an article in which he devised a better way to classify spam emails [<a href="http://www.paulgraham.com/better.html">2</a>].</p>
-<p>For this section, we will rely on the most simple version of a Bayesian spam filter we can create.  We will start by initially representing sentences as a set of unique words.  What we want to know is the probability that a message is spam given its set of words $P(S\mid\{w_1,w_2,...,w_n\})$, or the probability that a message is ham given its words $P(H\mid\{w_1,w_2,...,w_n\})$.   Using Bayes rule, we can rewrite these probabilities as $$P(s\mid\{w_1,w_2,...\}) \propto P(\{w_1,w_2,...\}\mid s)P(s) $$ where $s$ represents either spam or ham.</p>
-<p>While this expression is not terribly enlightening, if we will make the assumption that the probability of each word appearing is independent, ie. $$P(\{w_1,w_2,...,w_n\}) = \prod_iP(w_i)$$
-then we can rewrite the probability as $$P(s\mid\{w_1,w_2,...w_n\})\propto P(\{w_1,w_2,...,w_n\}\mid s)P(s) = \left(\prod_iP(w_i\mid s)\right) P(s)$$ where $s$ represent either Spam or Ham.    While this assumption is no doubt not false since there are correlations between the frequencies of words, it allows us to write an easily calculable expression for the probability of a word being spam.   In addition, as we will see, the assumption turns out to yield decent results.</p>
-<p>However, when we use this method, we still have the problem of words with zero frequency showing up.   To deal with this we will use laplace (add 1) smoothing where we define $$p(w_i\mid s) = \frac{\text{count}_s(w_i)+1}{\sum_j \text{count}(w_j)+1} $$ where count$_s(w_i)$ is the number of messages in $s$ that contain the word $w_i$.    To avoid floating-point underflow, we typically calculate $$\text{log}\,P(s\mid\{w_1,...,w_n\}) = \text{log}P(s)+\sum_{i=1}^N\text{log}P(w_i,s) $$ rather than $P(s\mid\{w_1,...w_n\})$</p>
-<p>To avoid the problem of rare words, we will also include a minimum document frequency necessary for us to consider a word.  We will then make predictions based on whether or not the log probability of the email being ham is greater than the log probability of the email being spam, however, we could also adjust the cutoff quite easily</p>
+<p>For this section, I will rely on the most simple version of a Bayesian spam filter I can create.  I will start by initially representing sentences as a set of unique words.  What I then want to know is the probability that a message is spam given its set of words $P(S\mid\{w_1,w_2,...,w_n\})$, or the probability that a message is ham given its words $P(H\mid\{w_1,w_2,...,w_n\})$.   Using Bayes rule, the probabilities can be rewritten as $$P(s\mid\{w_1,w_2,...\}) \propto P(\{w_1,w_2,...\}\mid s)P(s) $$ where $s$ represents either spam or ham.</p>
+<p>While this expression is not terribly enlightening, using the assumption that the probability of each word appearing is independent, ie. $$P(\{w_1,w_2,...,w_n\}) = \prod_iP(w_i)$$
+I can rewrite the probability as $$P(s\mid\{w_1,w_2,...w_n\})\propto P(\{w_1,w_2,...,w_n\}\mid s)P(s) = \left(\prod_iP(w_i\mid s)\right) P(s)$$ where $s$ represent either Spam or Ham.    While this assumption is no doubt not false since there are correlations between the frequencies of words, it allows one to write an easily calculable expression for the probability of a word being spam.   In addition, the assumption turns out to yield decent results.</p>
+<p>To deal with the problem of words with zero frequency showing up, I will use laplace (add 1) smoothing where I define $$p(w_i\mid s) = \frac{\text{count}_s(w_i)+1}{\sum_j \text{count}(w_j)+1} $$ where count$_s(w_i)$ is the number of messages in $s$ that contain the word $w_i$.    To avoid floating-point underflow, I will calculate $$\text{log}\,P(s\mid\{w_1,...,w_n\}) = \text{log}P(s)+\sum_{i=1}^N\text{log}P(w_i,s) $$ rather than $P(s\mid\{w_1,...w_n\})$</p>
+<p>To avoid the problem of rare words, I will also include a minimum document frequency necessary for the classifier to consider a word.  I will then make predictions based on whether or not the log probability of the email being ham is greater than the log probability of the email being spam, however, I could also adjust the cutoff quite easily to yield less false positive.</p>
 </div>
 </div>
 </div>
@@ -2950,7 +2950,7 @@ ZmaVHCzMzKySg4WZmVVysDAzs0oOFmZmVun/gWqa9PgLaLwAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can see that with this incredibly simple Bayesian classifier, we can achieve a high f1 score on the training set.</p>
+<p>While incredibly simple, the Bayesian classifier can achieve a high f1 score on the training set.</p>
 </div>
 </div>
 </div>
@@ -2959,7 +2959,7 @@ ZmaVHCzMzKySg4WZmVVysDAzs0oOFmZmVun/gWqa9PgLaLwAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Neural-networks-for-spam-classification-">Neural networks for spam classification <a id="4"></a><a class="anchor-link" href="#Neural-networks-for-spam-classification-">¶</a></h2><p>We can also take a deep learning approach to spam classification.  There are several approaches to classifying spam using neural networks; however, the model I will use for text classification will be a simple recurrent neural network (RNN) modeled in tensorflow.  An RNN is a type of neural network that allows us to model sequences of arbitrary lengths using one set of parameters.   The basic setup for one is show below: <img alt="A simple RNN" src="images/rnn.png">
+<h2 id="Neural-networks-for-spam-classification-">Neural networks for spam classification <a id="4"></a><a class="anchor-link" href="#Neural-networks-for-spam-classification-">¶</a></h2><p>I will also try using a deep learning approach to spam classification.  There are several approaches to classifying spam using neural networks; however, the model I will use for text classification will be a simple recurrent neural network (RNN) modeled in tensorflow.  An RNN is a type of neural network which can be used to model sequences of arbitrary lengths using one set of parameters.   The basic setup for one is show below: <img alt="A simple RNN" src="images/rnn.png">
 <strong>source: cs224 at stanford lecture notes, [<a href="http://cs224d.stanford.edu">3</a>]</strong></img></p>
 <p>The inputs $x_i$ are individual vectors representing each word.   Each node in the RNN takes two inputs, $x_i$ which represents the input of the $i$th word vector, and $h_{i-1}$ which represents the output from the $i-1$th node.   The nodes in tern generate two outputs, $y_i$ and $h_i$, where $h_i$ is than fed in as an input to the next node.   The nodes furthermore all share the same matrices, $W_{hh}$, $W_{xh}$, and $W_S$, which are used to generate the outputs.</p>
 <ul>
@@ -2968,12 +2968,12 @@ ZmaVHCzMzKySg4WZmVVysDAzs0oOFmZmVun/gWqa9PgLaLwAAAAASUVORK5CYII=
 </ul>
 <p>where $\sigma$ is the sigmoid function.   The benefit from a neural network like this is that the output of the $i$th node depends not just on $x_i$ but also on $x_{i-1}$, $x_{i-2}$ and so on.  For sentence processing, the steps are as follows:</p>
 <ol>
-<li>We start by encoding all of the words as vectors in a $D_w$ space, transforming an $n$ word sentence into a $n\times D_w$ tensor.  </li>
-<li>We transform a sentence into a length $n_s$ vector by  feeding the sentence words into a RNN, where each output is a  $n_{s}$ vector.  We take the last output of the RNN (which depends on all words in the RNN to be the sentence vector.</li>
-<li>We add in one additional layer to the neural network to map us from $n_s$ to $n_c$ where $n_c$ is the number of possible predicted labels (in this case 2).   </li>
-<li>We train this neural network using gradient descent.   </li>
+<li>The words are encoded as vectors in a $D_w$ space, transforming an $n$ word sentence into a $n\times D_w$ tensor.  </li>
+<li>The sentence is then transformed into a length $n_s$ vector by  feeding the sentence words into a RNN, where each output is a  $n_{s}$ vector.  I will take the last output of the RNN (which depends on all words in the RNN) to be the sentence vector.</li>
+<li>I will add in one additional layer to the neural network to map from $n_s$ to $n_c$ where $n_c$ is the number of possible predicted labels (in this case 2).   </li>
+<li>I will train this neural network using gradient descent.   </li>
 </ol>
-<p>We will construct this operation by using the popular library, tensorflow, to build our neural network, and gensim, to encode the word vectors.  Tensorflow is an open source package written in optimized c++ and python, which can be used to build fast neural networks.</p>
+<p>I will construct this operation by using the popular library, tensorflow, to build the recurrent neural network, and gensim, to encode the word vectors.  Tensorflow is an open source package written in optimized c++ and python, which can be used to build fast neural networks.</p>
 </div>
 </div>
 </div>
@@ -2982,8 +2982,8 @@ ZmaVHCzMzKySg4WZmVVysDAzs0oOFmZmVun/gWqa9PgLaLwAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Word-encodings-">Word encodings <a id="4.1"></a><a class="anchor-link" href="#Word-encodings-">¶</a></h2><p>To encode the words as vectors, we will use the gensim library and its word2vec encoder.   The word2vec encoder I will use in this case determines the embeddings of a word by considering what words often occur near that word.   For example, if president and prime minister occurred often together, the resulting vectors in the embedding would also appear close together.   However, the word 'president' and the word 'prime-rib' would appear distant.   The word2vec is a useful encoder since it also can preserve analogies.  For example, the vector that points from man to king, is nearly the same as the vector that points from woman to queen, and the vector that points from cow to beef will be nearly the same as the vector that points from sheep to mutton.</p>
-<p>To simplify the words more, we will first use a porter tokenizer to stem and tokenize all words before creating word embeddings.  This will reduce the noise associated with our small sample size.</p>
+<h2 id="Word-encodings-">Word encodings <a id="4.1"></a><a class="anchor-link" href="#Word-encodings-">¶</a></h2><p>To encode the words as vectors, I will use the gensim library and its word2vec encoder.   The word2vec encoder I will use in this case determines the embeddings of a word by considering what words often occur near that word.   For example, if president and prime minister occurred often together, the resulting vectors in the embedding would also appear close together.   However, the word 'president' and the word 'prime-rib' would appear distant.   The word2vec is a useful encoder since it also can preserve analogies.  For example, the vector that points from man to king, is nearly the same as the vector that points from woman to queen, and the vector that points from cow to beef will be nearly the same as the vector that points from sheep to mutton.</p>
+<p>To simplify the words more, I will first use a porter tokenizer to stem and tokenize all words before creating word embeddings.  This will reduce the noise associated with our small sample size.</p>
 </div>
 </div>
 </div>
@@ -3364,8 +3364,8 @@ Testing Loss=0.955797, testing accuracy= 0.74865, f1=0.74380
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From this, we can see that a neural network can achieve an f1 score of ~.74.   While this is substantially lower than the naive bayes and logistic regression we encountered, this is still a decent result.   The training set size is smaller than would be wanted for training the neural network, which means that several words will only occur once, and that the model is at a high risk of overfitting the relatively small amount of data.</p>
-<p>As a final test, we can explore what would happen if we slightly changed the neural network.   In the class shown below, we use LSTM cells rather than simple RNN cells.  We see however, that the results are still similar to the results using an rnn cell.</p>
+<p>The neural network can achieve an f1 score on the training set of ~.74.   While this is substantially lower than the naive bayes and logistic regression we encountered, this is still a decent result.   The training set size is smaller than would be wanted for training the neural network, which means that several words will only occur once, and that the model is at a high risk of overfitting the relatively small amount of data.</p>
+<p>As a final test, I will explore what would happen if the neural network was slightly changed.   In the class shown below, I use LSTM cells rather than simple RNN cells.  However, that the results are still similar to the results using an rnn cell.</p>
 </div>
 </div>
 </div>
@@ -3426,6 +3426,7 @@ Testing Loss=0.877782, testing accuracy= 0.74595, f1=0.75000
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Conclusions-">Conclusions <a id="5"></a><a class="anchor-link" href="#Conclusions-">¶</a></h2><p>In the case of spam classification of short sentences and a small corpus, both the logistic regression and naive bayes performed remarkably well, given how simple they were.    The more complex algorithm, the neural network could achieve an f1 score of .92 on the training set.  However, the f1 score on the test set was .74, which while good is not nearly as accurate as the test scores of the Naive Bayes Classifier.</p>
+<p>Thus for text classification of short sentences, one should stick with the simpler algorithms to predict spam.</p>
 </div>
 </div>
 </div>

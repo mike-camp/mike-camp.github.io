@@ -980,15 +980,15 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h1 id="Finding-spam-in-Youtube-comments."&gt;Finding spam in Youtube comments.&lt;a class="anchor-link" href="#Finding-spam-in-Youtube-comments."&gt;¶&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Spam has been around since the beginning of the internet.  In fact, the use of spam over a network stretches back all the way to 1884 when wealthy Americans were sent unsolicited investment offers over the telegraph[&lt;a href="http://content.time.com/time/business/article/0,8599,1933796,00.html"&gt;1&lt;/a&gt;].  In more modern times, the first appearence of modern email spam occured on ARPANET, a military precurser to the internet, when 'a man named Gary Turk sent an e-mail solicitation to 400 people, advertising his line of new computers'[&lt;a href="http://content.time.com/time/business/article/0,8599,1933796,00.html"&gt;1&lt;/a&gt;].&lt;/p&gt;
-&lt;p&gt;In this notebook we will consider the problem of finding spam in Youtube comments.   Spam in Youtube comments is a slightly different task then spam in email.  Youtube comments tend to be short, often less than five words, and a spam email may simply contain the name the website domain.   However, as we will see, it is quite easy to construct a machine learning model to classify comments as spam or ham (not spam).&lt;/p&gt;
-&lt;p&gt;For a training and test set, we will use the spam database found on the  UCI machine learning repository.   There are several different types of algorithm we can use to classify spam; however, in this notebook, I will compare three specific models&lt;/p&gt;
+&lt;h1 id="Finding-spam-in-Youtube-comments."&gt;Finding spam in Youtube comments.&lt;a class="anchor-link" href="#Finding-spam-in-Youtube-comments."&gt;¶&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Spam has been around since the beginning of the internet.  The use of spam over a network, in fact, stretches all the way back to 1884 when wealthy Americans were sent unsolicited investment offers over the telegraph[&lt;a href="http://content.time.com/time/business/article/0,8599,1933796,00.html"&gt;1&lt;/a&gt;].  In more modern times, the first appearence of modern email spam occured on ARPANET, a military precurser to the internet, when 'a man named Gary Turk sent an e-mail solicitation to 400 people, advertising his line of new computers'[&lt;a href="http://content.time.com/time/business/article/0,8599,1933796,00.html"&gt;1&lt;/a&gt;].&lt;/p&gt;
+&lt;p&gt;In this notebook we will consider the problem of finding spam in Youtube comments.   Spam in Youtube comments is a slightly different task then spam in email.  Youtube comments tend to be short, often less than five words, and a spam email may simply contain the name the website domain.   However, it is quite easy to construct a machine learning model to classify comments as spam or ham (not spam) with a high degree of accuracy.&lt;/p&gt;
+&lt;p&gt;For a training and test set, I will use the spam database found on the  UCI machine learning repository.   There are several different types of algorithmw which can be used to classify spam; however, in this notebook, I will compare three specific models&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Logistic Regression&lt;/li&gt;
 &lt;li&gt;Naive Bayes Classifier&lt;/li&gt;
 &lt;li&gt;Recurrent Neural Networks&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;While simple, the logistic regression and naive Bayes models perform quite well at classifying emails as spam or ham, and manage to achieve an f1 score of ~.9 on the test set.  The neural network performs well, though not as good as the Naive Bayes algorithm, with an f1 score of .75 on the test set.&lt;/p&gt;
+&lt;p&gt;While simple, the logistic regression and naive Bayes models perform quite well at classifying emails as spam or ham, and manage to achieve an f1 score (a common metric to evaluate models) of ~.9 on the test set.  The neural network performs well, though not as good as the Naive Bayes algorithm, with an f1 score of .75 on the test set.&lt;/p&gt;
 &lt;h2 id="Table-of-Contents"&gt;Table of Contents&lt;a class="anchor-link" href="#Table-of-Contents"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href="#1"&gt;Data preprocessing&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href="#1.1"&gt;Cleaning the data&lt;/a&gt;&lt;/li&gt;
@@ -1123,7 +1123,7 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;To get a better sense of the data, let us print out the content for several reviews.&lt;/p&gt;
+&lt;p&gt;To get a better sense of the data, I will print out the content for several reviews.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1159,7 +1159,7 @@ We are an EDM apparel company dedicated to bringing you music inspired  designs.
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Cleaning-the-data-"&gt;Cleaning the data &lt;a id="1.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Cleaning-the-data-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;We see that there are several features we don't need such as COMMENT_ID, AUTHOR, and DATE.   We also see that within content, there are a lot of web links.   To make it easier to identify weblinks, we will substitute in the word WEBLINK for every instance of a URL.   The character /ufeff is also present in the file, which is most likely due to improperly decoding utf-16 as utf-8.   We define a function to remove this.&lt;/p&gt;
+&lt;h3 id="Cleaning-the-data-"&gt;Cleaning the data &lt;a id="1.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Cleaning-the-data-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;There are several features unnecessary columns such as COMMENT_ID, AUTHOR, and DATE.   We also see that within content, there are a lot of web links.   To make it easier to identify weblinks, I will substitute in the word WEBLINK for every instance of a URL.   The character /ufeff is also present in the file, which is most likely due to improperly decoding utf-16 as utf-8.   I will also define a function to remove this.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1182,7 +1182,7 @@ We are an EDM apparel company dedicated to bringing you music inspired  designs.
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Splitting-the-data-into-test-and-training-sets-"&gt;Splitting the data into test and training sets &lt;a id="1.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Splitting-the-data-into-test-and-training-sets-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;We will want to be able to test our data, so we will split the data into a test and training set.  The training set will be used along with cross validation to select the best model.  The model will then be evaluated by testing it on the test dataset.&lt;/p&gt;
+&lt;h3 id="Splitting-the-data-into-test-and-training-sets-"&gt;Splitting the data into test and training sets &lt;a id="1.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Splitting-the-data-into-test-and-training-sets-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;So I will be able to test the data, I will split the data into a test and training set.  The training set will be used along with cross validation to select the best model.  The model will then be evaluated by testing it on the test dataset.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1204,7 +1204,7 @@ We are an EDM apparel company dedicated to bringing you music inspired  designs.
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Turning-the-sentences-into-useable-vectors-"&gt;Turning the sentences into useable vectors &lt;a id="2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Turning-the-sentences-into-useable-vectors-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;If we want to use a machine learning algorithm to predict the number of sentences, then we need to find a mapping that will associate every word, and every sentence with a vector that we then can feed into our machine learning algorithm.   The simplest way to do this is to use the Bag of words model, or create vectors by finding the term-frequency inverse-document-frequency of each sentence.&lt;/p&gt;
+&lt;h2 id="Turning-the-sentences-into-usable-vectors-"&gt;Turning the sentences into usable vectors &lt;a id="2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Turning-the-sentences-into-usable-vectors-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In order to use a machine learning algorithm to predict from a collection of sentences, it's necessary to use a mapping that will associate every word, and every sentence with a vector that can then be feed into the machine learning algorithm.   The simplest way to do this is to use the Bag of words model, or create vectors by finding the term-frequency inverse-document-frequency of each sentence.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1213,21 +1213,21 @@ We are an EDM apparel company dedicated to bringing you music inspired  designs.
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Bag-of-words-Model-"&gt;Bag of words Model &lt;a id="2.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Bag-of-words-Model-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;We will first use a bag of words model to turn each sentence into a unique vector.   The bag of words model is simply turning each word into a basis vector in a Hilbert space.  To form a vector for the words, we simply add the vectors for each word for each sentence.  Thus each sentence will be transformed into a vector that we can add to a machine learning model.  In this model, if we had the sentences&lt;/p&gt;
+&lt;h3 id="Bag-of-words-Model-"&gt;Bag of words Model &lt;a id="2.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Bag-of-words-Model-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;I will first use a bag of words model to turn each sentence into a unique vector.   The bag of words model is simply turning each word into a basis vector in a Hilbert space.  To form a vector for the words, I simply add the vectors for each word for each sentence.  Thus each sentence will be transformed into a vector that can be added to a machine learning model.  In this model, given the sentences&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;'I ran to the store',&lt;/li&gt;
 &lt;li&gt;'I ran across town',&lt;/li&gt;
 &lt;li&gt;'I ran to work and to home',&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;then we could form a basis set of the vectors ('I','ran','to','the','store','across','town','work','and','home').   The sentences would then be encoded as the vectors&lt;/p&gt;
+&lt;p&gt;and the basis set of the vectors ('I','ran','to','the','store','across','town','work','and','home').   The sentences would then be encoded as the vectors&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;(1,1,1,1,1,0,0,0,0,0)&lt;/li&gt;
 &lt;li&gt;(1,1,0,0,0,1,1,0,0,0)&lt;/li&gt;
 &lt;li&gt;(1,1,2,0,0,0,0,1,1,1)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;However, this model can still be improved.  For example, the words 'the', 'a', and 'of' occur so often that they are unlikely to help us classify comment.   These words that are common enough that they do not aid in distinguishing sentences are called stopwords.   Another limitation is that our implementation above would classify 'bag' and 'bags' as two different words.   For this bag-of-words model, we don't care about the verb tense or the s at the end of a word.  What we want to do is associate every word with a stem, that represents its most basic feature. ie. 'run' and 'running', and 'runs' might all be replaced by the same word 'ru'.  To achieve this, we will use a porter stemmer, which is found in the nltk.&lt;/p&gt;
-&lt;p&gt;Another limitation is that words that only occur once during the document do not add any predictive power.  Because of this, we will ignore any words that occur less than five times.&lt;/p&gt;
-&lt;h3 id="TFIDF-"&gt;TFIDF &lt;a id="2.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#TFIDF-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;The vectors are not normalized now, and in fact can be improved using one more feature which mapping each count in a vector to its term frequency/inverse document frequency.   A term which appears five times in one comment is likely important.  This is referred to as the document frequency.  However, if that same term appears five times in every comment, then it is likely a commonly used word, 'the' for example.  This is the document frequency  The term frequency/inverse document frequency is simply the ratio of the term frequency to the inverse document frequency.   The precise definition is to let the number of times a term $t$ appears in document $d$ be $tf(t,d)$.   Let $n_d$ be the total number of documents in the corpus, and let $df(t)$ be the number of documents containing term $t$.  Then the term-frequency calculated in the sklearn TfidfVectorizer is $tfidf(t,d)$ is $$tfidf(t,d) = tf(t,d)\cdot\text{log}\left(\frac{1+n_d}{1+df(t)}+1\right)$$  (Note, this differs slightly from the tfidf given in textbooks).  The resulting vectors are then normalized.&lt;/p&gt;
+&lt;p&gt;However, this model can still be improved.  For example, the words 'the', 'a', and 'of' occur so often that they are unlikely to help us classify comment.   These words that are common enough that they do not aid in distinguishing sentences are called stopwords.   Another limitation is that our implementation above would classify 'bag' and 'bags' as two different words.   For this bag-of-words model, the verb tense or the s at the end of a word doesn't significantly affect the meaning of the word in the sentence.  In order to reflect this, I will associate every word with a stem, that represents its most basic feature. ie. 'run' and 'running', and 'runs' might all be replaced by the same word 'ru'.  To achieve this, I will use a porter stemmer, which is found in the nltk.&lt;/p&gt;
+&lt;p&gt;Another limitation is that words that only occur once during the document do not add any predictive power.  Because of this, I will ignore any words that occur less than five times.&lt;/p&gt;
+&lt;h3 id="TFIDF-"&gt;TFIDF &lt;a id="2.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#TFIDF-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;The vectors are not normalized and in fact can be improved using one more feature which mapping each count in a vector to its term frequency/inverse document frequency.   A term which appears five times in one comment is likely important.  This is referred to as the document frequency.  However, if that same term appears five times in every comment, then it is likely a commonly used word, 'the' for example.  This is the document frequency  The term frequency/inverse document frequency is simply the ratio of the term frequency to the inverse document frequency.   The precise definition is to let the number of times a term $t$ appears in document $d$ be $tf(t,d)$.   Let $n_d$ be the total number of documents in the corpus, and let $df(t)$ be the number of documents containing term $t$.  Then the term-frequency calculated in the sklearn TfidfVectorizer is $tfidf(t,d)$ is $$tfidf(t,d) = tf(t,d)\cdot\text{log}\left(\frac{1+n_d}{1+df(t)}+1\right)$$  (Note, this differs slightly from the tfidf given in textbooks).  The resulting vectors are then normalized.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1269,11 +1269,11 @@ We are an EDM apparel company dedicated to bringing you music inspired  designs.
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Predicting-spam-vs-ham-"&gt;Predicting spam vs ham &lt;a id="3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Predicting-spam-vs-ham-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;h3 id="Model-evaluation-criteria-"&gt;Model evaluation criteria &lt;a id="3.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Model-evaluation-criteria-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Now that we have transformed our sentences into feature vectors, we can try several machine learning algorithms to predict whether or not a given word will be spam.  We also will need a way to evaluate our results.  Since in the real world, spam occurs infrequently compared to ham, a classifier which simply predicted everything as ham would have a high accuracy.  Because of this, accuracy is not the prefered way to measure the performance of a spam classifier.  Instead we will use a combination of precision and recall&lt;/p&gt;
+&lt;h2 id="Predicting-spam-vs-ham-"&gt;Predicting spam vs ham &lt;a id="3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Predicting-spam-vs-ham-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;h3 id="Model-evaluation-criteria-"&gt;Model evaluation criteria &lt;a id="3.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Model-evaluation-criteria-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Now that I have transformed the sentences into feature vectors, I will create and compare several machine learning algorithms to predict whether or not a given word will be spam. Since in the real world, spam occurs infrequently compared to ham, a classifier which simply predicted everything as ham would have a high accuracy.  Because of this, accuracy is not the prefered way to measure the performance of a spam classifier.  Instead I will use a combination of precision and recall&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;precision: The number of true positives divided by the number of elements predicted to be true (true and false positives)&lt;/li&gt;
 &lt;li&gt;recall: The number of true positives divided by the number of all positives (true positives and false negatives)
-Since we want to maximize both of these at the same time, we will use the f1-score, which is defined as the product of precision and recall, divided by their mean.  $$f_1 = \frac{\text{precision}\cdot\text{recall}}{(\text{precision}+\text{recall})/2}$$&lt;/li&gt;
+Since I want to maximize both of these at the same time, I will use the f1-score, which is defined as the product of precision and recall, divided by their mean.  $$f_1 = \frac{\text{precision}\cdot\text{recall}}{(\text{precision}+\text{recall})/2}$$&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1294,7 +1294,7 @@ Since we want to maximize both of these at the same time, we will use the f1-sco
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Logistic-Regression-"&gt;Logistic Regression &lt;a id="3.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Logistic-Regression-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;The simplest model we could use to predict spam would be a logistic regression.   The logistic regression model will choose its parameters via a grid search which will alter the regularization term C.   We will also try using both the bag of words, and the tfidf vectors.&lt;/p&gt;
+&lt;h3 id="Logistic-Regression-"&gt;Logistic Regression &lt;a id="3.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Logistic-Regression-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;One of the simplist models that could be used to predict spam would be a logistic regression.   The logistic regression model will choose its parameters via a grid search which will alter the regularization term C.   I will also try using both the bag of words, and the tfidf vectors.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2335,7 +2335,7 @@ I+K5dtfFupe7oczMrC5nFmZmVpczCzMzq8vBwszM6nKwMDOzuhwszMysLgcLMzOr6/8B/2I4GtIZ
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;We can see that the simple bow model gets a slightly higher f1 score then the tfidf.  We can also note that because of the large dimension of the feature space, that the model achieves near perfect accuracy on the training set.&lt;/p&gt;
+&lt;p&gt;The simple bow model gets a slightly higher f1 score then the tfidf.  Because of the large dimension of the feature space, that the model achieves near perfect accuracy on the training set.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2345,11 +2345,11 @@ I+K5dtfFupe7oczMrC5nFmZmVpczCzMzq8vBwszM6nKwMDOzuhwszMysLgcLMzOr6/8B/2I4GtIZ
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h3 id="Bayesian-spam-filtering-"&gt;Bayesian spam filtering &lt;a id="3.3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Bayesian-spam-filtering-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Bayesian spam filtering is one of the oldest types of spam filtering out there.   The original papers covering this method were first published in 1998 [&lt;a href="http://www.paulgraham.com/better.html"&gt;2&lt;/a&gt;].   However, further improvements came in 2003, when Paul Graham published an article in which he devised a better way to classify spam emails [&lt;a href="http://www.paulgraham.com/better.html"&gt;2&lt;/a&gt;].&lt;/p&gt;
-&lt;p&gt;For this section, we will rely on the most simple version of a Bayesian spam filter we can create.  We will start by initially representing sentences as a set of unique words.  What we want to know is the probability that a message is spam given its set of words $P(S\mid\{w_1,w_2,...,w_n\})$, or the probability that a message is ham given its words $P(H\mid\{w_1,w_2,...,w_n\})$.   Using Bayes rule, we can rewrite these probabilities as $$P(s\mid\{w_1,w_2,...\}) \propto P(\{w_1,w_2,...\}\mid s)P(s) $$ where $s$ represents either spam or ham.&lt;/p&gt;
-&lt;p&gt;While this expression is not terribly enlightening, if we will make the assumption that the probability of each word appearing is independent, ie. $$P(\{w_1,w_2,...,w_n\}) = \prod_iP(w_i)$$
-then we can rewrite the probability as $$P(s\mid\{w_1,w_2,...w_n\})\propto P(\{w_1,w_2,...,w_n\}\mid s)P(s) = \left(\prod_iP(w_i\mid s)\right) P(s)$$ where $s$ represent either Spam or Ham.    While this assumption is no doubt not false since there are correlations between the frequencies of words, it allows us to write an easily calculable expression for the probability of a word being spam.   In addition, as we will see, the assumption turns out to yield decent results.&lt;/p&gt;
-&lt;p&gt;However, when we use this method, we still have the problem of words with zero frequency showing up.   To deal with this we will use laplace (add 1) smoothing where we define $$p(w_i\mid s) = \frac{\text{count}_s(w_i)+1}{\sum_j \text{count}(w_j)+1} $$ where count$_s(w_i)$ is the number of messages in $s$ that contain the word $w_i$.    To avoid floating-point underflow, we typically calculate $$\text{log}\,P(s\mid\{w_1,...,w_n\}) = \text{log}P(s)+\sum_{i=1}^N\text{log}P(w_i,s) $$ rather than $P(s\mid\{w_1,...w_n\})$&lt;/p&gt;
-&lt;p&gt;To avoid the problem of rare words, we will also include a minimum document frequency necessary for us to consider a word.  We will then make predictions based on whether or not the log probability of the email being ham is greater than the log probability of the email being spam, however, we could also adjust the cutoff quite easily&lt;/p&gt;
+&lt;p&gt;For this section, I will rely on the most simple version of a Bayesian spam filter I can create.  I will start by initially representing sentences as a set of unique words.  What I then want to know is the probability that a message is spam given its set of words $P(S\mid\{w_1,w_2,...,w_n\})$, or the probability that a message is ham given its words $P(H\mid\{w_1,w_2,...,w_n\})$.   Using Bayes rule, the probabilities can be rewritten as $$P(s\mid\{w_1,w_2,...\}) \propto P(\{w_1,w_2,...\}\mid s)P(s) $$ where $s$ represents either spam or ham.&lt;/p&gt;
+&lt;p&gt;While this expression is not terribly enlightening, using the assumption that the probability of each word appearing is independent, ie. $$P(\{w_1,w_2,...,w_n\}) = \prod_iP(w_i)$$
+I can rewrite the probability as $$P(s\mid\{w_1,w_2,...w_n\})\propto P(\{w_1,w_2,...,w_n\}\mid s)P(s) = \left(\prod_iP(w_i\mid s)\right) P(s)$$ where $s$ represent either Spam or Ham.    While this assumption is no doubt not false since there are correlations between the frequencies of words, it allows one to write an easily calculable expression for the probability of a word being spam.   In addition, the assumption turns out to yield decent results.&lt;/p&gt;
+&lt;p&gt;To deal with the problem of words with zero frequency showing up, I will use laplace (add 1) smoothing where I define $$p(w_i\mid s) = \frac{\text{count}_s(w_i)+1}{\sum_j \text{count}(w_j)+1} $$ where count$_s(w_i)$ is the number of messages in $s$ that contain the word $w_i$.    To avoid floating-point underflow, I will calculate $$\text{log}\,P(s\mid\{w_1,...,w_n\}) = \text{log}P(s)+\sum_{i=1}^N\text{log}P(w_i,s) $$ rather than $P(s\mid\{w_1,...w_n\})$&lt;/p&gt;
+&lt;p&gt;To avoid the problem of rare words, I will also include a minimum document frequency necessary for the classifier to consider a word.  I will then make predictions based on whether or not the log probability of the email being ham is greater than the log probability of the email being spam, however, I could also adjust the cutoff quite easily to yield less false positive.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2884,7 +2884,7 @@ ZmaVHCzMzKySg4WZmVVysDAzs0oOFmZmVun/gWqa9PgLaLwAAAAASUVORK5CYII=
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;We can see that with this incredibly simple Bayesian classifier, we can achieve a high f1 score on the training set.&lt;/p&gt;
+&lt;p&gt;While incredibly simple, the Bayesian classifier can achieve a high f1 score on the training set.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2893,7 +2893,7 @@ ZmaVHCzMzKySg4WZmVVysDAzs0oOFmZmVun/gWqa9PgLaLwAAAAASUVORK5CYII=
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Neural-networks-for-spam-classification-"&gt;Neural networks for spam classification &lt;a id="4"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Neural-networks-for-spam-classification-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;We can also take a deep learning approach to spam classification.  There are several approaches to classifying spam using neural networks; however, the model I will use for text classification will be a simple recurrent neural network (RNN) modeled in tensorflow.  An RNN is a type of neural network that allows us to model sequences of arbitrary lengths using one set of parameters.   The basic setup for one is show below: &lt;img alt="A simple RNN" src="images/rnn.png"&gt;
+&lt;h2 id="Neural-networks-for-spam-classification-"&gt;Neural networks for spam classification &lt;a id="4"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Neural-networks-for-spam-classification-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;I will also try using a deep learning approach to spam classification.  There are several approaches to classifying spam using neural networks; however, the model I will use for text classification will be a simple recurrent neural network (RNN) modeled in tensorflow.  An RNN is a type of neural network which can be used to model sequences of arbitrary lengths using one set of parameters.   The basic setup for one is show below: &lt;img alt="A simple RNN" src="images/rnn.png"&gt;
 &lt;strong&gt;source: cs224 at stanford lecture notes, [&lt;a href="http://cs224d.stanford.edu"&gt;3&lt;/a&gt;]&lt;/strong&gt;&lt;/img&gt;&lt;/p&gt;
 &lt;p&gt;The inputs $x_i$ are individual vectors representing each word.   Each node in the RNN takes two inputs, $x_i$ which represents the input of the $i$th word vector, and $h_{i-1}$ which represents the output from the $i-1$th node.   The nodes in tern generate two outputs, $y_i$ and $h_i$, where $h_i$ is than fed in as an input to the next node.   The nodes furthermore all share the same matrices, $W_{hh}$, $W_{xh}$, and $W_S$, which are used to generate the outputs.&lt;/p&gt;
 &lt;ul&gt;
@@ -2902,12 +2902,12 @@ ZmaVHCzMzKySg4WZmVVysDAzs0oOFmZmVun/gWqa9PgLaLwAAAAASUVORK5CYII=
 &lt;/ul&gt;
 &lt;p&gt;where $\sigma$ is the sigmoid function.   The benefit from a neural network like this is that the output of the $i$th node depends not just on $x_i$ but also on $x_{i-1}$, $x_{i-2}$ and so on.  For sentence processing, the steps are as follows:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;We start by encoding all of the words as vectors in a $D_w$ space, transforming an $n$ word sentence into a $n\times D_w$ tensor.  &lt;/li&gt;
-&lt;li&gt;We transform a sentence into a length $n_s$ vector by  feeding the sentence words into a RNN, where each output is a  $n_{s}$ vector.  We take the last output of the RNN (which depends on all words in the RNN to be the sentence vector.&lt;/li&gt;
-&lt;li&gt;We add in one additional layer to the neural network to map us from $n_s$ to $n_c$ where $n_c$ is the number of possible predicted labels (in this case 2).   &lt;/li&gt;
-&lt;li&gt;We train this neural network using gradient descent.   &lt;/li&gt;
+&lt;li&gt;The words are encoded as vectors in a $D_w$ space, transforming an $n$ word sentence into a $n\times D_w$ tensor.  &lt;/li&gt;
+&lt;li&gt;The sentence is then transformed into a length $n_s$ vector by  feeding the sentence words into a RNN, where each output is a  $n_{s}$ vector.  I will take the last output of the RNN (which depends on all words in the RNN) to be the sentence vector.&lt;/li&gt;
+&lt;li&gt;I will add in one additional layer to the neural network to map from $n_s$ to $n_c$ where $n_c$ is the number of possible predicted labels (in this case 2).   &lt;/li&gt;
+&lt;li&gt;I will train this neural network using gradient descent.   &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;We will construct this operation by using the popular library, tensorflow, to build our neural network, and gensim, to encode the word vectors.  Tensorflow is an open source package written in optimized c++ and python, which can be used to build fast neural networks.&lt;/p&gt;
+&lt;p&gt;I will construct this operation by using the popular library, tensorflow, to build the recurrent neural network, and gensim, to encode the word vectors.  Tensorflow is an open source package written in optimized c++ and python, which can be used to build fast neural networks.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2916,8 +2916,8 @@ ZmaVHCzMzKySg4WZmVVysDAzs0oOFmZmVun/gWqa9PgLaLwAAAAASUVORK5CYII=
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Word-encodings-"&gt;Word encodings &lt;a id="4.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Word-encodings-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;To encode the words as vectors, we will use the gensim library and its word2vec encoder.   The word2vec encoder I will use in this case determines the embeddings of a word by considering what words often occur near that word.   For example, if president and prime minister occurred often together, the resulting vectors in the embedding would also appear close together.   However, the word 'president' and the word 'prime-rib' would appear distant.   The word2vec is a useful encoder since it also can preserve analogies.  For example, the vector that points from man to king, is nearly the same as the vector that points from woman to queen, and the vector that points from cow to beef will be nearly the same as the vector that points from sheep to mutton.&lt;/p&gt;
-&lt;p&gt;To simplify the words more, we will first use a porter tokenizer to stem and tokenize all words before creating word embeddings.  This will reduce the noise associated with our small sample size.&lt;/p&gt;
+&lt;h2 id="Word-encodings-"&gt;Word encodings &lt;a id="4.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Word-encodings-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;To encode the words as vectors, I will use the gensim library and its word2vec encoder.   The word2vec encoder I will use in this case determines the embeddings of a word by considering what words often occur near that word.   For example, if president and prime minister occurred often together, the resulting vectors in the embedding would also appear close together.   However, the word 'president' and the word 'prime-rib' would appear distant.   The word2vec is a useful encoder since it also can preserve analogies.  For example, the vector that points from man to king, is nearly the same as the vector that points from woman to queen, and the vector that points from cow to beef will be nearly the same as the vector that points from sheep to mutton.&lt;/p&gt;
+&lt;p&gt;To simplify the words more, I will first use a porter tokenizer to stem and tokenize all words before creating word embeddings.  This will reduce the noise associated with our small sample size.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -3298,8 +3298,8 @@ Testing Loss=0.955797, testing accuracy= 0.74865, f1=0.74380
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;From this, we can see that a neural network can achieve an f1 score of ~.74.   While this is substantially lower than the naive bayes and logistic regression we encountered, this is still a decent result.   The training set size is smaller than would be wanted for training the neural network, which means that several words will only occur once, and that the model is at a high risk of overfitting the relatively small amount of data.&lt;/p&gt;
-&lt;p&gt;As a final test, we can explore what would happen if we slightly changed the neural network.   In the class shown below, we use LSTM cells rather than simple RNN cells.  We see however, that the results are still similar to the results using an rnn cell.&lt;/p&gt;
+&lt;p&gt;The neural network can achieve an f1 score on the training set of ~.74.   While this is substantially lower than the naive bayes and logistic regression we encountered, this is still a decent result.   The training set size is smaller than would be wanted for training the neural network, which means that several words will only occur once, and that the model is at a high risk of overfitting the relatively small amount of data.&lt;/p&gt;
+&lt;p&gt;As a final test, I will explore what would happen if the neural network was slightly changed.   In the class shown below, I use LSTM cells rather than simple RNN cells.  However, that the results are still similar to the results using an rnn cell.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -3360,6 +3360,7 @@ Testing Loss=0.877782, testing accuracy= 0.74595, f1=0.75000
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h2 id="Conclusions-"&gt;Conclusions &lt;a id="5"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Conclusions-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In the case of spam classification of short sentences and a small corpus, both the logistic regression and naive bayes performed remarkably well, given how simple they were.    The more complex algorithm, the neural network could achieve an f1 score of .92 on the training set.  However, the f1 score on the test set was .74, which while good is not nearly as accurate as the test scores of the Naive Bayes Classifier.&lt;/p&gt;
+&lt;p&gt;Thus for text classification of short sentences, one should stick with the simpler algorithms to predict spam.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -4577,7 +4578,7 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Processing-the-data-into-useful-features-"&gt;Processing the data into useful features &lt;a id="section2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Processing-the-data-into-useful-features-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;We also will need to convert the title and content from a series of words, into a series of meaningful features.   To do this we will associate each word with a part of speech, i.e. a noun, pronoun, verb, adverb, etc, using the NLTK library.  We will also find the term frequency-inverse document frequencies of each word, which helps to measure how "important" a word is.   We will also notice that the word length is mildly predictive of how often a word occurs.&lt;/p&gt;
+&lt;h2 id="Processing-the-data-into-useful-features-"&gt;Processing the data into useful features &lt;a id="section2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Processing-the-data-into-useful-features-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;I also will need to convert the title and content from a series of words, into a series of meaningful features.   To do this I will associate each word with a part of speech, i.e. a noun, pronoun, verb, adverb, etc, using the NLTK library.  I will also find the term frequency-inverse document frequencies of each word, which helps to measure how "important" a word is.   It also can be seen that the word length is mildly predictive of how often a word occurs.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -4586,8 +4587,8 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Part-of-speech-"&gt;Part of speech &lt;a id="2.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Part-of-speech-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Looking at the tags, we can notice that most of the tags are nouns (ie vegetables, curry) or verbs.  Because of this, we will want to keep track of all parts of speech as one of our features.  To do this, we will use the natural language toolkit, an open source python library designed for processing text and language.&lt;/p&gt;
-&lt;p&gt;To store this information, we will create a dataframe for every question in our cooking dataframe which stores every unique word (minus stop words) and their corresponding part of speech.&lt;/p&gt;
+&lt;h3 id="Part-of-speech-"&gt;Part of speech &lt;a id="2.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Part-of-speech-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Most of the tags in the dataset are nouns (ie vegetables, curry) or verbs.  Because of this, I will want to keep track of all parts of speech as one of the features.  To do this, I will use the natural language toolkit (nltk), an open source python library designed for processing text and language.&lt;/p&gt;
+&lt;p&gt;To store this information, I will create a dataframe for every question in the cooking dataframe which stores every unique word (minus stop words) and its corresponding part of speech.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -4618,6 +4619,12 @@ h6:hover .anchor-link {
 &lt;span class="n"&gt;df_cooking&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'terms'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_cooking&lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="s1"&gt;'content'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;'title'&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;apply&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;&lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;\
                                                             &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;create_word_dataframe&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;df_cooking&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'terms'&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;### Term Frequency-Inverse Document Frequency &lt;a id="2.2"&gt;&lt;/a&gt;&lt;/span&gt;
+
+&lt;span class="n"&gt;Given&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;collection&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;documents&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;term&lt;/span&gt; &lt;span class="n"&gt;frequency&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;frequency&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;which&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;term&lt;/span&gt; &lt;span class="n"&gt;appears&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;document&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;  &lt;span class="n"&gt;If&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt; &lt;span class="n"&gt;appears&lt;/span&gt; &lt;span class="n"&gt;multiple&lt;/span&gt; &lt;span class="n"&gt;times&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;then&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="n"&gt;likely&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;important&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;  &lt;span class="n"&gt;So&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;measure&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;importance&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt; &lt;span class="n"&gt;might&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="s1"&gt;'s term frequency.  The document frequency is how often the term appears in all of the documents.  If a word appears in every document in the corpus (for example "the"), then the term is unlikely to be important in distinguishing documents.  The term frequency/inverse document frequency (TFIDF) is the ratio of the term frequency divided by the document frequency.  This means it weights highly words which appear often in one document, but not other documents, and weights words which appear in every document lower.   To find this, we will use the sklearn package TfidfVectorizer.  &lt;/span&gt;
+
+&lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;precise&lt;/span&gt; &lt;span class="n"&gt;definition&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;idf&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;implemented&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;sklearn&lt;/span&gt; &lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;idf&lt;/span&gt; &lt;span class="n"&gt;transformer&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;follows&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;  &lt;span class="n"&gt;Let&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;times&lt;/span&gt; &lt;span class="n"&gt;term&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;appears&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;document&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;n_d&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;documents&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;corpus&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;documents&lt;/span&gt; &lt;span class="n"&gt;containing&lt;/span&gt; &lt;span class="n"&gt;term&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;then&lt;/span&gt; &lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;idf&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="n"&gt;given&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="err"&gt;$$&lt;/span&gt;\&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;idf&lt;/span&gt;&lt;span class="p"&gt;}(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;\&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt;\&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;\&lt;span class="n"&gt;frac&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;n_d&lt;/span&gt;&lt;span class="p"&gt;}{&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)}&lt;/span&gt;\&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;\&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;$$&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -4691,16 +4698,6 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Term-Frequency-Inverse-Document-Frequency-"&gt;Term Frequency-Inverse Document Frequency &lt;a id="2.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Term-Frequency-Inverse-Document-Frequency-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Given a collection of documents, the term frequency is the frequency of which a term appears in document.  If a word appears multiple times in the content section, then it is likely to be important.  So a measure of the importance of the word might be it's term frequency.  The document frequency is how often the term appears in all of the documents.  If a word appears in every document in the corpus (for example "the"), then the term is unlikely to be important in distinguishing documents.  The term frequency/inverse document frequency (TFIDF) is the ratio of the term frequency divided by the document frequency.  This means it weights highly words which appear often in one document, but not other documents, and weights words which appear in every document lower.   To find this, we will use the sklearn package TfidfVectorizer.&lt;/p&gt;
-&lt;p&gt;The precise definition of tf-idf as implemented by the sklearn tf-idf transformer is as follows.  Let $tf(t,d)$ be the number of times term $t$ appears in document $d$, $n_d$ be the number of documents in the corpus, and $df(t)$ be the number of documents containing term $t$, then tf-idf$(t)$ is given by $$\text{tf-idf}(t,d) = tf(t,d)\left( log\left(\frac{1+n_d}{1+df(t)}\right) +1\right) $$&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -4862,7 +4859,7 @@ h6:hover .anchor-link {
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h3 id="TF-IDF-ranks-"&gt;TF-IDF ranks &lt;a id="2.3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#TF-IDF-ranks-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Another possibly useful quantity is the rank of the tfidf in terms of all of the tfidf values in the document.  If all of the words in a question have low tf-idf scores, then by just using the tfidf values we might predict that there are no tags.  Thus a possibly useful measure of how important a terms is, is not just the absolute tfidf value, but how the tfidf value ranks in terms of all of the tfidf values in a question.&lt;/p&gt;
-&lt;p&gt;We will also at this point create a column indicating whether or not a word was tagged.&lt;/p&gt;
+&lt;p&gt;I will also at this point create a column indicating whether or not a word was tagged.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -4984,8 +4981,8 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Average-tf-idf-values-&amp;lt;a-id-=-&amp;#x27;2.4&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;Average tf-idf values &lt;a id="2.4"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Average-tf-idf-values-&amp;lt;a-id-=-&amp;#x27;2.4&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;There are still a couple of useful features we can extract.   We can notice that the total number of tags increases much slower than the number of entries, indicating that each tag are reused several times.   So there exists a much smaller set of tagged words in the entire corpus.  We want some way to distinguish these tagged words from the rest of the corpus.&lt;/p&gt;
-&lt;p&gt;A useful measure is the average tfidf values of the word.   If a word is tagged often, then when it appears, it most likely has a high tfidf value each time.  Hence the tagged words should tend to have higher average tfidf values then untagged words.&lt;/p&gt;
+&lt;h3 id="Average-tf-idf-values-&amp;lt;a-id-=-&amp;#x27;2.4&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;Average tf-idf values &lt;a id="2.4"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Average-tf-idf-values-&amp;lt;a-id-=-&amp;#x27;2.4&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;There are still a couple of useful features I can extract.   T total number of tags increases much slower than the number of entries, indicating that each tag are reused several times.   So there exists a much smaller set of tagged words in the entire corpus.  I will design a feature that reflects whether or not a word is likely to be in the set of tagged words.&lt;/p&gt;
+&lt;p&gt;A useful measure of this is the average tfidf values of the word.   If a word is tagged often, then when it appears, it most likely has a high tfidf value each time.  Hence the tagged words should tend to have higher average tfidf values then untagged words.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -5639,7 +5636,7 @@ untagged terms average title-tfidf values: 0.068+/-0.163
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h4 id="Combining-the-operations"&gt;Combining the operations&lt;a class="anchor-link" href="#Combining-the-operations"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Now that we have came up with a list of features we want, let’s put all of these transformations in one function that can be easily applied to any of the six dataframes we are analyzing.&lt;/p&gt;
+&lt;h4 id="Combining-the-operations"&gt;Combining the operations&lt;a class="anchor-link" href="#Combining-the-operations"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Now that I have came up with a list of features for the model, I'm going to collect all of these transformations into one function that can be easily applied to any of the six dataframes I'm analyzing.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -5816,7 +5813,7 @@ untagged terms average title-tfidf values: 0.068+/-0.163
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Exploratory-Data-Analysis:-"&gt;Exploratory Data Analysis: &lt;a id="3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Exploratory-Data-Analysis:-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;h3 id="TF-IDF-"&gt;TF-IDF &lt;a id="3.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#TF-IDF-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;At this point, we have processed each stack exchange entry into a useful set of features.  Now, let’s do some exploratory data analysis to see the relationship between content tfidf, title_tfidf, and the tfidf ranks.  Since there's many more untagged points, we will limit the number of untagged points we plot to be roughly equal to the amount of tagged points&lt;/p&gt;
+&lt;h2 id="Exploratory-Data-Analysis:-"&gt;Exploratory Data Analysis: &lt;a id="3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Exploratory-Data-Analysis:-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;h3 id="TF-IDF-"&gt;TF-IDF &lt;a id="3.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#TF-IDF-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;At this point, I have processed each stack exchange entry into a useful set of features.  Now, I will do some exploratory data analysis to see the relationship between content tfidf, title_tfidf, and the tfidf ranks.  Since there are many more untagged points than tagged points, I will limit the number of untagged points we plot to be roughly equal to the amount of tagged points&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -6337,7 +6334,7 @@ ujihNDMzM7O6OKE0MzMzs7r8f3VVvG/6zerjAAAAAElFTkSuQmCC
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;From this we see that the terms which have a title or content tfidf of zero are very unlikely to be tagged, hence we can exclude them from consideration by simply cutting them off.&lt;/p&gt;
+&lt;p&gt;From this I see that the terms which have a title or content tfidf of zero are very unlikely to be tagged, hence I can exclude them from consideration by simply cutting them off.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -7026,7 +7023,7 @@ GgcMAf7XSaOZmZl1hWscrcdJmgF8ukPxbRExK9f5lSTpXJIm9GyPRMT5lYjHzMysL3PiaGZmZmZF
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Word-length-"&gt;Word length &lt;a id="3.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Word-length-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;We might find that the word length is also somewhat predictive of a word being tagged or not.  The longer a word is, the higher probability it has of being tagged.   We can see for all of the words, the probability that a word is tagged tends to increase with length, with the exception of words with three letters which tend to be acronyms and are slightly more likely to be tagged.&lt;/p&gt;
+&lt;h3 id="Word-length-"&gt;Word length &lt;a id="3.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Word-length-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;The word length is also somewhat predictive of a word being tagged or not.  The longer a word is, the higher probability it has of being tagged.   We can see for all of the words, the probability that a word is tagged tends to increase with length, with the exception of words with three letters which tend to be acronyms and are slightly more likely to be tagged.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -7415,7 +7412,7 @@ sGMpSZKkgfh/YNX10C9JTPEAAAAASUVORK5CYII=
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;At this point we will need to analyze more then one formatted dataframe, so we will create and save these now.&lt;/p&gt;
+&lt;p&gt;At this point I will need to analyze more then one formatted dataframe, so I will create and save these now.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -7438,7 +7435,7 @@ sGMpSZKkgfh/YNX10C9JTPEAAAAASUVORK5CYII=
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h4 id="Part-of-Speech-"&gt;Part of Speech &lt;a id="3.3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Part-of-Speech-"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;There are several parts of speech, however we can see that if a word is tagged NN, then it is much more likely to be a tagged word.   The next most likely categories are NNS, JJ, VB, and VBG.&lt;/p&gt;
+&lt;h4 id="Part-of-Speech-"&gt;Part of Speech &lt;a id="3.3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Part-of-Speech-"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;There are several parts of speech, however if a word is tagged NN, then it is much more likely to be a tagged word.   The next most likely categories are NNS, JJ, VB, and VBG.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -7886,7 +7883,7 @@ gWhmZmZmTVwgmpmZmVmT/wc/eRh62PQ/PAAAAABJRU5ErkJggg==
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;This suggests to us that we should use the part of speech as a predictive measure.  To show this more clearly, let’s look at the probability that a word will be tagged given that it is a noun, a verb, etc.   Of course if a part of speech only occurs one time, then it won't be useful to pay attention to its probability, so lets make the cutoff that the type of word has to occur more than 1% of the time.&lt;/p&gt;
+&lt;p&gt;This suggests that the part of speech as a predictive measure.  To show this more clearly, I will look at the probability that a word will be tagged given that it is a noun, a verb, etc.   Of course if a part of speech only occurs one time, then it won't be useful to pay attention to its probability, so I will make the cutoff that the type of word has to occur more than 1% of the time.&lt;/p&gt;
 &lt;p&gt;The graphs illustrate that across all subjects, NN and NNS labeled words are the most likely to be tagged.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -8347,7 +8344,7 @@ DoDX6dIAAAAASUVORK5CYII=
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Building-the-model-"&gt;Building the model &lt;a id="4"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Building-the-model-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Now that we have came up with a useful list of features, its time to build a model.  The end goal is not only to be able to train and predict tags within one dataset, but it is instead to be able to train the model on one dataset, such as cooking stack exchange questions, and then use it to predict tags on another unrelated dataset.&lt;/p&gt;
+&lt;h2 id="Building-the-model-"&gt;Building the model &lt;a id="4"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Building-the-model-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Now that I have came up with a useful list of features, it's time to build a model.  The end goal is not only to be able to train and predict tags within one dataset, but it is instead to be able to train the model on one dataset, such as training the model on cooking stack exchange questions, and then using it to predict tags on another unrelated dataset.&lt;/p&gt;
 &lt;p&gt;Because this is a complicated task, I will first construct some models for predicting the tags within a specific dataset, then apply these models across datasets.   I will evaluate the model based on how many tags that are present as words in the title or contents are correctly classified as tagged/not tagged.   Since there are far more words which are untagged, to avoid the classifier predicting that nothing is tagged and achieving a high accuracy, I will use the f1 score as the scoring metric.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -8358,8 +8355,8 @@ DoDX6dIAAAAASUVORK5CYII=
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h4 id="SVM-classifiers-"&gt;SVM classifiers &lt;a id="4.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#SVM-classifiers-"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;A support vector machine attempts to classify data by creating a hyperplane which separates both classes.   The hyperplane is chosen so that as many points as possible lie in the right side, and that there is a large margin around the hyperplane where the points aren't close.   Although the first SVM was linear, SVM's can be used as non-linear classifiers by first mapping the data to a higher dimensional space where it can be linearly separated, and then creating a hyperplane which lies between them.  This turns out not to be as computational expensive via the kernel trick.&lt;/p&gt;
-&lt;p&gt;Since we saw before that our data wasn't linearly separable, we can use the non-linear kernels.   Also since most of the words are not-tagged, we want to weight the points which are tagged more heavily (since the model will tend towards predicting that nothing is tagged which has a 95% accuracy).&lt;/p&gt;
-&lt;p&gt;We will also need to deal with the word types.   Fortunately, we can see that the amount of word types used in tags is relatively small, and we could separate these out into separate features to use with one hot encoding.  However, if we do this, then the model is unlikely to be able to predict tags in different subjects since the word type distribution for tagged words varies between tags.  Instead, I will separate the words out into three categories, one for words labeled NN, one for JJ,NNS,VB,VBP, VBG, VBN, VBZ, or VBD, and one for all other tags.&lt;/p&gt;
+&lt;p&gt;Since I saw in the exploratory data analysis that the data wasn't linearly separable, I will try using the non-linear kernels.   Also since most of the words are not-tagged, I will weight the points which are tagged more heavily (since the model will tend towards predicting that nothing is tagged which has a 95% accuracy).&lt;/p&gt;
+&lt;p&gt;I will also need to deal with the word types.   Fortunately, the amount of word types used in tags is relatively small, and I can separate these out into separate features to use with one hot encoding.  However, if I do this, then the model is unlikely to be able to predict tags in different subjects since the word type distribution for tagged words varies between tags.  Instead, I will separate the words out into three categories, one for words labeled NN, one for JJ,NNS,VB,VBP, VBG, VBN, VBZ, or VBD, and one for all other tags.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -8426,7 +8423,7 @@ DoDX6dIAAAAASUVORK5CYII=
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;We can try this on several datasets, and apply the classifiers from each dataset to the other datasets&lt;/p&gt;
+&lt;p&gt;I will try this on several datasets, and apply the classifiers from each dataset to the other datasets&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -8754,7 +8751,7 @@ AElFTkSuQmCC
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;This works, however we might be interested in seeing if bagging can improve the results.  Bagging involves training different classifiers on subsets of the data.   The final prediction is then done by a majority vote by all of the classifiers.   We will also try restricting the number of features as a parameter in our grid search.  Finally, to speed up the calculation, we will pick the best values of C and gamma from our last search as our values of C and gamma.&lt;/p&gt;
+&lt;p&gt;This works, however, I will try using bagging to improve the results.  Bagging involves training different classifiers on subsets of the data.   The final prediction is then done by a majority vote by all of the classifiers.   I will also try restricting the number of features as a parameter in our grid search.  Finally, to speed up the calculation, I will pick the best values of C and gamma from our last search as our values of C and gamma.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -9056,7 +9053,7 @@ xhjjWCAaY4xjgWiMMY4FojHGOBaIxhjjWCAaY4zz/wGm3tF4M2Y+8wAAAABJRU5ErkJggg==
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;We can see that this doesn't provide that much benefit in accurate scores, however, timewise, this method ends up being much faster than the previous methods.&lt;/p&gt;
+&lt;p&gt;This turns out to not provide that much benefit in accurate scores; however, timewise, this method ends up being much faster than the previous methods.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -9065,7 +9062,7 @@ xhjjWCAaY4xjgWiMMY4FojHGOBaIxhjjWCAaY4zz/wGm3tF4M2Y+8wAAAABJRU5ErkJggg==
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Stochastic-Gradient-descent-with-kernel-approximation-"&gt;Stochastic Gradient descent with kernel approximation &lt;a id="4.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Stochastic-Gradient-descent-with-kernel-approximation-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;The previous method gave good results, however, we might want to train our classifier using all of the dataset.  To do this, we need to use stochastic gradient descent.  Although this is usually used for fitting linear methods, we can use a the sklearn kernel approximator to map the data into a higher dimensional space before feeding it into our classifier.   The mapping tries to approximate the mapping of the rbf kernel.&lt;/p&gt;
+&lt;h3 id="Stochastic-Gradient-descent-with-kernel-approximation-"&gt;Stochastic Gradient descent with kernel approximation &lt;a id="4.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Stochastic-Gradient-descent-with-kernel-approximation-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;The previous method gave good results, however, I might want to train our classifier using all of the dataset.  To do this, I need to use stochastic gradient descent.  Although this is usually used for fitting linear methods, I can use a the sklearn kernel approximator to map the data into a higher dimensional space before feeding it into our classifier.   The mapping tries to approximate the mapping of the rbf kernel.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -9397,7 +9394,7 @@ YxwriMYY41hBNMYYxwqiMcY4/x/84c1+hLrGfwAAAABJRU5ErkJggg==
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;We can see that although this runs much faster then the SVM, it does not perform nearly as well.&lt;/p&gt;
+&lt;p&gt;Although this runs much faster then the SVM, it does not perform nearly as well.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -9722,7 +9719,7 @@ YwXRGGMcK4jGGONYQTTGGMcKojHGOP8P0uY6o2WrIIoAAAAASUVORK5CYII=
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;As we can see, random forest classifiers perform as well as the SVM classifier, however it takes a fraction of the time to train a random forest classifier as it does an SVM classifier.   We might be interested in increasing the number of estimators in the random forest which almost always makes a model more predictive at the cost of extra computational time.&lt;/p&gt;
+&lt;p&gt;For this dataset, random forest classifiers perform as well as the SVM classifier, however it takes a fraction of the time to train a random forest classifier as it does an SVM classifier.   It is also possible to increase the number of estimators in the random forest which will make a model more predictive at the cost of extra computational time.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -10040,7 +10037,7 @@ xhjjWEE0xhjn/wEZP0yxbDylSAAAAABJRU5ErkJggg==
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Testing-the-model-"&gt;Testing the model &lt;a id="5"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Testing-the-model-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;We can see that the highest scores are achieved by using a random foest classifier, however, when applying this model to unseen datasets, its not obvious which model should be used to predict.  Rather then choosing one classifier to predict the data, we will use all of the classifiers.  There are two ways we can do this, a soft classification, which uses each estimator to find the probabilities of either class membership, and then choosing the highest probability, or we can use a majority voting scheme, where each classifier votes for the label to be either 0 or 1 and the category with the most votes wins.&lt;/p&gt;
+&lt;h2 id="Testing-the-model-"&gt;Testing the model &lt;a id="5"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Testing-the-model-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The highest scores are achieved by using a random foest classifier; however, when applying this model to unseen datasets, it's not obvious which model should be used to predict.  Rather then choosing one classifier to predict the data, I will use all of the classifiers.  There are two ways we can do this, a soft classification, which uses each estimator to find the probabilities of either class membership, and then choosing the highest probability, or we can use a majority voting scheme, where each classifier votes for the label to be either 0 or 1 and the category with the most votes wins.&lt;/p&gt;
 &lt;p&gt;To test these out, I will download and process four more dataframes: Personal finance and money, cryptography, music, and fitness.  I will then test the models on these datsets.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -10347,6 +10344,17 @@ lgEOazOzDHBYm5llwP8HD6n2FHcEM8UAAAAASUVORK5CYII=
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h2 id="Conclusions:--"&gt;Conclusions:  &lt;a id="6"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Conclusions:--"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;I constructed a model to predict the tags of a stack exchange datasets which the model was not trained on.  I was able to create models which would correctly classify terms within the title or content as tagged or untagged with an f1 score ranging from .10 to .15.  Although this score is slightly low, the problem itself is quite difficult and high scores would be quite difficult to get using any method.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [ ]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -11359,8 +11367,8 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h1 id="Analyzing-the-UCI-heart-disease-dataset"&gt;Analyzing the UCI heart disease dataset&lt;a class="anchor-link" href="#Analyzing-the-UCI-heart-disease-dataset"&gt;¶&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;The UCI repository contains three datasets on heart disease.   Each dataset contains information about several patients suspected of having heart disease such as  whether or not the patient is a smoker, the patients resting heart rate, age, sex, etc.   The patients were all tested for heart disease and the results of that tests are given as numbers ranging from 0 (no heart disease) to 4 (severe heart disease).   The goal of this notebook will be to use machine learning and statistical techniques to see if we can predict both the presence and severity of heart disease from the features given.   In addition, we will also analyze which features are most important in predicting the presence and severity of heart disease.&lt;/p&gt;
-&lt;p&gt;There are three relevant datasets we will be using, which are from Hungary, Long Beach, and Cleveland.  Each of these hospitals recorded patient data, which was published with personal information removed from the database.&lt;/p&gt;
+&lt;h1 id="Analyzing-the-UCI-heart-disease-dataset"&gt;Analyzing the UCI heart disease dataset&lt;a class="anchor-link" href="#Analyzing-the-UCI-heart-disease-dataset"&gt;¶&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;The UCI repository contains three datasets on heart disease.   Each dataset contains information about several patients suspected of having heart disease such as  whether or not the patient is a smoker, the patients resting heart rate, age, sex, etc.   The patients were all tested for heart disease and the results of that tests are given as numbers ranging from 0 (no heart disease) to 4 (severe heart disease).   The goal of this notebook will be to use machine learning and statistical techniques to predict both the presence and severity of heart disease from the features given.   In addition, I will also analyze which features are most important in predicting the presence and severity of heart disease.&lt;/p&gt;
+&lt;p&gt;There are three relevant datasets which I will be using, which are from Hungary, Long Beach, and Cleveland.  Each of these hospitals recorded patient data, which was published with personal information removed from the database.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -11393,7 +11401,7 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Cleaning-the-Data-&amp;lt;a-id-=&amp;#x27;1&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;Cleaning the Data &lt;a id="1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Cleaning-the-Data-&amp;lt;a-id-=&amp;#x27;1&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The datasets are slightly messy and will first need to be cleaned.  For example,the dataset isn't in standard csv format, instead each feature spans several lines, with each feature being separated by the word 'name'.   We will first process the data to bring it into csv format, and then import it into a pandas df.  The names and descriptions of the features, found on the UCI repository is stored in the string feature_names.&lt;/p&gt;
+&lt;h2 id="Cleaning-the-Data-&amp;lt;a-id-=&amp;#x27;1&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;Cleaning the Data &lt;a id="1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Cleaning-the-Data-&amp;lt;a-id-=&amp;#x27;1&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The datasets are slightly messy and will first need to be cleaned.  For example,the dataset isn't in standard csv format, instead each feature spans several lines, with each feature being separated by the word 'name'.   I will first process the data to bring it into csv format, and then import it into a pandas df.  The names and descriptions of the features, found on the UCI repository is stored in the string feature_names.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -11772,7 +11780,7 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Flagging-NaN-values-"&gt;Flagging NaN values &lt;a id="1.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Flagging-NaN-values-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;The NaN values are represented as -9.  We need to flag these as NaN values if we want to get good results from any machine learning algorithm.&lt;/p&gt;
+&lt;h3 id="Flagging-NaN-values-"&gt;Flagging NaN values &lt;a id="1.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Flagging-NaN-values-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;The NaN values are represented as -9. These will need to be flagged as NaN values in order to get good results from any machine learning algorithm.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -11972,8 +11980,8 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Removing-non-predictive-features-"&gt;Removing non-predictive features &lt;a id="1.3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Removing-non-predictive-features-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;However before we do start analyzing the data we should drop columns which aren't going to be predictive.  Several features such as the day of the exercise reading, or the ID of the patient are unlikely to be relevant in predicting heart disease.  The exercise protocol might be predictive, however, since this might vary with the hospital, and since the hospitals had different rates for the category of heart disease, this might end up being more indicative of the hospital the patient went to and not of the likelihood of heart disease.   The description of the columns on the UCI website also indicates that several of the columns should not be used.&lt;/p&gt;
-&lt;p&gt;In addition the information in columns 59+ is simply about the vessels that damage was detected in.   Since we are only trying to predict the presence of heart disease and not the specific vessels which are damaged, we will discard these columns.&lt;/p&gt;
+&lt;h3 id="Removing-non-predictive-features-"&gt;Removing non-predictive features &lt;a id="1.3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Removing-non-predictive-features-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;However before I do start analyzing the data I will drop columns which aren't going to be predictive.  Several features such as the day of the exercise reading, or the ID of the patient are unlikely to be relevant in predicting heart disease.  The exercise protocol might be predictive, however, since this might vary with the hospital, and since the hospitals had different rates for the category of heart disease, this might end up being more indicative of the hospital the patient went to and not of the likelihood of heart disease.   The description of the columns on the UCI website also indicates that several of the columns should not be used.&lt;/p&gt;
+&lt;p&gt;In addition the information in columns 59+ is simply about the vessels that damage was detected in.   Since I am only trying to predict the presence of heart disease and not the specific vessels which are damaged, I will discard these columns.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;ID: id of patient&lt;/li&gt;
 &lt;li&gt;ccf: social security number (I replaced this with a dummy value of 0)&lt;/li&gt;
@@ -12013,7 +12021,7 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;To get a better sense of the remaining data, we can look at how many distinct values occur in each of the columns&lt;/p&gt;
+&lt;p&gt;To get a better sense of the remaining data, I will print out how many distinct values occur in each of the columns&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -12053,7 +12061,7 @@ chol   213
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;We see that some columns such as pncaden contain less than 2 values.  These columns are not predictive and hence should be dropped.&lt;/p&gt;
+&lt;p&gt;Some columns such as pncaden contain less than 2 values.  These columns are not predictive and hence should be dropped.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -12086,7 +12094,7 @@ chol   213
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;We also have several columns which are mostly filled with NaN entries.   We will drop any entries which are filled mostly with NaN entries since we want to make predictions based on categories that all or most of the data shares.&lt;/p&gt;
+&lt;p&gt;There are also several columns which are mostly filled with NaN entries.   I will drop any entries which are filled mostly with NaN entries since I want to make predictions based on categories that all or most of the data shares.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -12333,7 +12341,7 @@ num: [0 1 2 3 4]
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;We can also see that the column 'prop' appear to both have corrupted rows in them, which will need to be deleted from the dataframe.  We will also one hot encode the categorical features 'cp' and 'restecg' which is the type of chest pain.&lt;/p&gt;
+&lt;p&gt;We can also see that the column 'prop' appear to both have corrupted rows in them, which will need to be deleted from the dataframe.  I will also one hot encode the categorical features 'cp' and 'restecg' which is the type of chest pain.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -12529,7 +12537,7 @@ num: [0 1 2 3 4]
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Exploratory-data-analysis-&amp;lt;a-id-=&amp;#x27;2&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;Exploratory data analysis &lt;a id="2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Exploratory-data-analysis-&amp;lt;a-id-=&amp;#x27;2&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;We still have a large number of features.  We will need to see which of these features are useful in predicting the data, and which are not.   We will begin by splitting our data into a test and training dataset.&lt;/p&gt;
+&lt;h2 id="Exploratory-data-analysis-&amp;lt;a-id-=&amp;#x27;2&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;Exploratory data analysis &lt;a id="2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Exploratory-data-analysis-&amp;lt;a-id-=&amp;#x27;2&amp;#x27;&amp;gt;&amp;lt;/a&amp;gt;"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The dataset still has a large number of features, which need to be analyzed for predictive power.  I will begin by splitting the data into a test and training dataset.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -12552,8 +12560,8 @@ num: [0 1 2 3 4]
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Using-the-anova-F-test-and-mutual-information-for-feature-selection-"&gt;Using the anova F test and mutual information for feature selection &lt;a id="2.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Using-the-anova-F-test-and-mutual-information-for-feature-selection-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;From this we see that we do have some features which are slightly predictive by themselves.   However, we currently have more features than we need, and not all of these features are useful.  To narrow down the number of features, we will use the sklearn class SelectKBest.   By default, this class uses the anova f-value of each feature to select the best features.   The f value is a ratio of the variance between classes divided by the variance within classes.  This tells us how much the variable differs between the classes we want to compare.  The higher the f value, the more likely a variable is to be relevant.  However, the f value can miss features or relationships which are meaningful.  Another way to approach the feature selection is to select the features with the highest mutual information.   We will use both of these methods to find which one yields the best results.&lt;/p&gt;
-&lt;p&gt;To deal with missing variables, we will take the mean.&lt;/p&gt;
+&lt;h3 id="Using-the-anova-F-test-and-mutual-information-for-feature-selection-"&gt;Using the anova F test and mutual information for feature selection &lt;a id="2.1"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Using-the-anova-F-test-and-mutual-information-for-feature-selection-"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Although there are some features which are slightly predictive by themselves, the data contains more features than necessary, and not all of these features are useful.  To narrow down the number of features, I will use the sklearn class SelectKBest.   By default, this class uses the anova f-value of each feature to select the best features.   The f value is a ratio of the variance between classes divided by the variance within classes.  This tells us how much the variable differs between the classes.  The higher the f value, the more likely a variable is to be relevant.  However, the f value can miss features or relationships which are meaningful.  Another way to approach the feature selection is to select the features with the highest mutual information.   I will use both of these methods to find which one yields the best results.&lt;/p&gt;
+&lt;p&gt;To deal with missing variables in the data (NaN values), I will take the mean.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -13154,7 +13162,7 @@ C4vFYrGUxSoLi8VisZTl/wEN7E/Ou2X11AAAAABJRU5ErkJggg==
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;As we can see, the accuracy is about the same using the mutual information, and the accuracy stops increasing soon after reaching approximately 5 features.&lt;/p&gt;
+&lt;p&gt;The accuracy is about the same using the mutual information, and the accuracy stops increasing soon after reaching approximately 5 features.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -13589,7 +13597,7 @@ ITEzs4Z4ITEzs4Z4ITEzs4Z4ITEzs4Z4ITEzs4Z4ITEzs4a8BsdDNT2zO5nbAAAAAElFTkSuQmCC
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Choosing-a-classifier.---"&gt;Choosing a classifier.   &lt;a id="4.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Choosing-a-classifier.---"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;There are several types of classifiers available in sklearn to use.   We have already tried Logistic Regression and Random Forests.  However, we have not find the optimal parameters for these models using a grid search yet.   To do this, we will use a grid search to evaluate all possible combinations.   We will test out three popular models for fitting categorical data, logistic regression, random forests, and support vector machines using both the linear and rbf kernel.&lt;/p&gt;
+&lt;h3 id="Choosing-a-classifier.---"&gt;Choosing a classifier.   &lt;a id="4.2"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Choosing-a-classifier.---"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;There are several types of classifiers available in sklearn to use.   I have already tried Logistic Regression and Random Forests.  However, I have not found the optimal parameters for these models using a grid search yet.   To do this, I will use a grid search to evaluate all possible combinations.   I will test out three popular models for fitting categorical data, logistic regression, random forests, and support vector machines using both the linear and rbf kernel.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -13688,7 +13696,7 @@ accuracy: 0.541
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Another possible useful classifier is the gradient boosting classifier, XGBoost, which has been used to win several kaggle challenges.  Lets try it out on this dataset.&lt;/p&gt;
+&lt;p&gt;Another possible useful classifier is the gradient boosting classifier, XGBoost, which has been used to win several kaggle challenges.  I will use this to predict values from the dataset.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -13732,7 +13740,7 @@ accuracy: 0.541
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;We see here that xgboost does better slightly better than the random forest and logistic regression, however the results are all close to each other.&lt;/p&gt;
+&lt;p&gt;The xgboost does better slightly better than the random forest and logistic regression, however the results are all close to each other.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -13741,7 +13749,7 @@ accuracy: 0.541
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Results.---"&gt;Results.   &lt;a id="3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Results.---"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Upon applying our model to the testing dataset, we manage to get an accuracy of 56.7%.  The xgboost is only marginally more accurate than using a logistic regression in predicting the presence and type of heart disease.&lt;/p&gt;
+&lt;h2 id="Results.---"&gt;Results.   &lt;a id="3"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Results.---"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Upon applying our model to the testing dataset, I manage to get an accuracy of 56.7%.  The xgboost is only marginally more accurate than using a logistic regression in predicting the presence and type of heart disease.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -13796,7 +13804,7 @@ accuracy: 0.541
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Several groups analyzing this dataset used a subsample of 14 features.  When we compare the features we use, we see that our algorithm already selected only from these 14 features, and ended up only selecting 6 of them to create the model (note cp_2 and cp_4 are one hot encodings of the values of the feature cp)&lt;/p&gt;
+&lt;p&gt;Several groups analyzing this dataset used a subsample of 14 features.  Our algorithm already selected only from these 14 features, and ended up only selecting 6 of them to create the model (note cp_2 and cp_4 are one hot encodings of the values of the feature cp)&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;&lt;tr&gt;
 &lt;th&gt;Used in other analysis&lt;/th&gt;
@@ -13899,7 +13907,7 @@ dtype: object
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Conclusions:-"&gt;Conclusions: &lt;a id="4"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Conclusions:-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In predicting the presence and type of heart disease, we were able to achieve a 57.5% accuracy on the training set, and a 56.7% accuracy on the test set, indicating that our model was not overfitting the data.     The most important features we found in predicting the presence of heart damage and the importance scores calculated by the xgboost classifier were:&lt;/p&gt;
+&lt;h2 id="Conclusions:-"&gt;Conclusions: &lt;a id="4"&gt;&lt;/a&gt;&lt;a class="anchor-link" href="#Conclusions:-"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In predicting the presence and type of heart disease, I was able to achieve a 57.5% accuracy on the training set, and a 56.7% accuracy on the test set, indicating that our model was not overfitting the data.     The most important features in predicting the presence of heart damage and their importance scores calculated by the xgboost classifier were:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;&lt;tr&gt;
 &lt;th&gt;feature&lt;/th&gt;
