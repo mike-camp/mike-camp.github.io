@@ -30,12 +30,12 @@ hr {
 
 .header {
 	background-image: url('/images/ranier.jpeg');
-	background-position-y: -110px;
-	background-position-x:-10px;
-	background-size: 10vw;
-	min-height: 190px;
 	background-repeat: no-repeat;
 	background-color: #FFFFFF;
+	background-position-y: -110px;
+	background-position-x: -10px;
+	background-size: 100vw;
+	min-height: 190px;
 }
 
 .header a {
