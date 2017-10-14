@@ -35,7 +35,7 @@ hr {
 	background-position-y: -8vw;
 	background-position-x: -10px;
 	background-size: 115vw;
-	min-height: 190px;
+	min-height: 214px;
 }
 
 .header a {
@@ -53,7 +53,7 @@ hr {
 
 .header,
 .footer {
-  padding: 1.5rem 0 .5rem;
+  padding: 1vw 3.5rem;
 }
 
 .header {
